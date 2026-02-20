@@ -80,14 +80,12 @@ const Hero = () => {
 
             <h1 className="hero-title">
               The World Moves Fast.
-              <span className="gradient-text"> Let’s Make It Smarter.
-              </span>
+              <span className="gradient-text"> Let's Make It Smarter.</span>
             </h1>
 
             <p className="hero-description">
               Vehicles. Assets. People. In motion, every second. 
-              We turn that motion into visibility, safety, and control so you’re never left in the dark.
-
+              We turn that motion into visibility, safety, and control so you're never left in the dark.
             </p>
 
             <div className="hero-cta">
@@ -124,88 +122,24 @@ const Hero = () => {
           <div className="hero-right">
             <div className="dashboard-mockup">
               <div className="map-container">
-                <svg className="map-svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
-                  <defs>
-                    <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#2d3748" strokeWidth="0.5"/>
-                    </pattern>
-                    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                      <rect width="100" height="100" fill="url(#smallGrid)"/>
-                      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#2d3748" strokeWidth="1"/>
-                    </pattern>
-                    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{stopColor:'#1a202c'}}/>
-                      <stop offset="100%" style={{stopColor:'#2d3748'}}/>
-                    </linearGradient>
-                    <path id="path1" d="M 100 100 Q 250 150, 400 100 Q 500 80, 520 150 Q 500 250, 400 280 Q 250 290, 150 250 Q 80 200, 100 100"/>
-                    <path id="path2" d="M 150 200 Q 300 250, 450 200 Q 520 180, 530 260 Q 480 320, 350 330 Q 200 310, 130 240 Q 100 200, 150 200"/>
-                    <path id="path3" d="M 200 150 Q 350 180, 480 140 Q 550 160, 560 240 Q 510 300, 380 310 Q 230 290, 160 220 Q 140 170, 200 150"/>
-                  </defs>
+                {/* VIDEO PLAYER - REPLACING MAP */}
+                <div className="video-container">
+                  <video 
+                    className="fleet-video"
+                    //controls
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster="/video-poster.jpg"
+                  >
+                    <source src="/hv.mp4" type="video/mp4" />
+                    <source src="/fleet-demo.webm" type="video/webm" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
 
-                  <rect width="600" height="400" fill="url(#mapGradient)"/>
-                  <rect width="600" height="400" fill="url(#grid)" opacity="0.3"/>
-
-                  <path d="M 50 200 L 550 200" stroke="#4a5568" strokeWidth="8" opacity="0.5"/>
-                  <path d="M 300 50 L 300 350" stroke="#4a5568" strokeWidth="8" opacity="0.5"/>
-                  <path d="M 50 200 L 550 200" stroke="#718096" strokeWidth="2" strokeDasharray="10,10" opacity="0.8"/>
-                  <path d="M 300 50 L 300 350" stroke="#718096" strokeWidth="2" strokeDasharray="10,10" opacity="0.8"/>
-
-                  <rect x="100" y="100" width="40" height="40" fill="#374151" opacity="0.6" rx="2"/>
-                  <rect x="450" y="250" width="50" height="50" fill="#374151" opacity="0.6" rx="2"/>
-                  <rect x="200" y="280" width="35" height="35" fill="#374151" opacity="0.6" rx="2"/>
-                  <rect x="400" y="80" width="45" height="45" fill="#374151" opacity="0.6" rx="2"/>
-
-                  <circle cx="150" cy="150" r="5" fill="#ef4444" opacity="0.8"/>
-                  <circle cx="150" cy="150" r="10" fill="none" stroke="#ef4444" strokeWidth="2" opacity="0.5">
-                    <animate attributeName="r" values="10;15;10" dur="2s" repeatCount="indefinite"/>
-                  </circle>
-
-                  <circle cx="480" cy="280" r="5" fill="#10b981" opacity="0.8"/>
-                  <circle cx="480" cy="280" r="10" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.5">
-                    <animate attributeName="r" values="10;15;10" dur="2s" repeatCount="indefinite"/>
-                  </circle>
-
-                  <path d="M 100 100 Q 250 150, 400 100" stroke="#3b82f6" strokeWidth="2" fill="none" opacity="0.4" strokeDasharray="5,5">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="1s" repeatCount="indefinite"/>
-                  </path>
-                  <path d="M 150 200 Q 300 250, 450 200" stroke="#ef4444" strokeWidth="2" fill="none" opacity="0.4" strokeDasharray="5,5">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="1s" repeatCount="indefinite"/>
-                  </path>
-
-                  <g className="vehicle">
-                    <circle cx="0" cy="0" r="25" fill="#10b981" opacity="0.15">
-                      <animate attributeName="r" values="25;35;25" dur="2s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="0" cy="0" r="15" fill="#059669"/>
-                    <text x="0" y="5" textAnchor="middle" fill="white" fontSize="12">🚛</text>
-                    <animateMotion dur="20s" repeatCount="indefinite">
-                      <mpath href="#path1"/>
-                    </animateMotion>
-                  </g>
-
-                  <g className="vehicle">
-                    <circle cx="0" cy="0" r="25" fill="#3b82f6" opacity="0.15">
-                      <animate attributeName="r" values="25;35;25" dur="2s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="0" cy="0" r="15" fill="#2563eb"/>
-                    <text x="0" y="5" textAnchor="middle" fill="white" fontSize="12">🚚</text>
-                    <animateMotion dur="15s" repeatCount="indefinite">
-                      <mpath href="#path2"/>
-                    </animateMotion>
-                  </g>
-
-                  <g className="vehicle">
-                    <circle cx="0" cy="0" r="25" fill="#ef4444" opacity="0.15">
-                      <animate attributeName="r" values="25;35;25" dur="2s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="0" cy="0" r="15" fill="#dc2626"/>
-                    <text x="0" y="5" textAnchor="middle" fill="white" fontSize="12">🚐</text>
-                    <animateMotion dur="18s" repeatCount="indefinite">
-                      <mpath href="#path3"/>
-                    </animateMotion>
-                  </g>
-                </svg>
-
+                {/* STATS OVERLAY - KEPT AS IS */}
                 <div className="map-stats">
                   <div className="stat-card">
                     <div className="stat-card-header">
@@ -234,7 +168,9 @@ const Hero = () => {
                 </div>
               </div>
 
-              <div className="vehicle-list">
+              {/* VEHICLE LIST - KEPT AS IS */}
+              {/*
+              "<div className="vehicle-list">
                 {[
                   { icon: '🚛', name: 'Vehicle #A123', status: 'En route to warehouse', speed: '68 km/h' },
                   { icon: '🚚', name: 'Vehicle #B456', status: 'Loading at depot', speed: '0 km/h' },
@@ -252,7 +188,7 @@ const Hero = () => {
                     <div className="vehicle-speed">{vehicle.speed}</div>
                   </div>
                 ))}
-              </div>
+              </div>*/}
             </div>
           </div>
         </div>
