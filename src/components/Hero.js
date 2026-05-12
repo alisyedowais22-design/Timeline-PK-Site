@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';  
 
 const Hero = () => {
   const canvasRef = useRef(null);
@@ -89,18 +90,21 @@ const Hero = () => {
             </p>
 
             <div className="hero-cta">
-              <button className="btn-hero-primary">
+              {/* BUTTON 1*/}
+              <Link to="/platform" className="btn-hero-primary">
                 <span>Explore Our Solutions</span>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-              </button>
-              <button className="btn-hero-secondary">
+              </Link>
+
+              {/* BUTTON 2 */}
+              <Link to="/contact" className="btn-hero-secondary">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M6.5 5.5l7 4.5-7 4.5v-9z"/>
                 </svg>
                 <span>Talk to An Expert</span>
-              </button>
+              </Link>
             </div>
 
             <div className="hero-stats">
@@ -122,24 +126,18 @@ const Hero = () => {
           <div className="hero-right">
             <div className="dashboard-mockup">
               <div className="map-container">
-                {/* VIDEO PLAYER - REPLACING MAP */}
+                {/* VIDEO PLAYER */}
                 <div className="video-container">
-                  <video 
+                  <iframe
+                    src="https://www.youtube.com/embed/S48XnY3M8Mk?autoplay=1&mute=1&loop=1&playlist=S48XnY3M8Mk&controls=0&showinfo=0&rel=0&playsinline=1"
                     className="fleet-video"
-                    //controls
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    poster="/video-poster.jpg"
-                  >
-                    <source src="/hv.mp4" type="video/mp4" />
-                    <source src="/fleet-demo.webm" type="video/webm" />
-                    Your browser does not support the video tag.
-                  </video>
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    style={{ border: 'none', width: '100%', height: '100%' }}
+                  />
                 </div>
 
-                {/* STATS OVERLAY - KEPT AS IS */}
+                {/* STATS OVERLAY */}
                 <div className="map-stats">
                   <div className="stat-card">
                     <div className="stat-card-header">
@@ -167,28 +165,6 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
-
-              {/* VEHICLE LIST - KEPT AS IS */}
-              {/*
-              "<div className="vehicle-list">
-                {[
-                  { icon: '🚛', name: 'Vehicle #A123', status: 'En route to warehouse', speed: '68 km/h' },
-                  { icon: '🚚', name: 'Vehicle #B456', status: 'Loading at depot', speed: '0 km/h' },
-                  { icon: '🚐', name: 'Vehicle #C789', status: 'Delivery in progress', speed: '45 km/h' }
-                ].map((vehicle, index) => (
-                  <div key={index} className="vehicle-item" style={{animationDelay: `${index * 0.2}s`}}>
-                    <div className="vehicle-icon">{vehicle.icon}</div>
-                    <div className="vehicle-info">
-                      <div className="vehicle-name">{vehicle.name}</div>
-                      <div className="vehicle-status">
-                        <span className="status-dot active"></span>
-                        {vehicle.status}
-                      </div>
-                    </div>
-                    <div className="vehicle-speed">{vehicle.speed}</div>
-                  </div>
-                ))}
-              </div>*/}
             </div>
           </div>
         </div>

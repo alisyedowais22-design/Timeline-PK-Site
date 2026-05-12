@@ -125,21 +125,21 @@ const ContactPage = () => {
                   <span className="contact-detail-icon">📧</span>
                   <div>
                     <h4>Email</h4>
-                    <a href="mailto:info@teletix.me">info@teletix.me</a>
+                    <a href="mailto:info@teletix.me">mehmood.ayaz@teletix.me</a>
                   </div>
                 </div>
                 <div className="contact-detail-card">
                   <span className="contact-detail-icon">📞</span>
                   <div>
                     <h4>Phone</h4>
-                    <a href="tel:+923111122883">+92 311 1122 883</a>
+                    <a href="tel:+923200002283">+92 3200002283</a>
                   </div>
                 </div>
                 <div className="contact-detail-card">
                   <span className="contact-detail-icon">💬</span>
                   <div>
                     <h4>WhatsApp</h4>
-                    <a href="https://wa.me/923111122883" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
+                    <a href="https://wa.me/923200002283" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
                   </div>
                 </div>
                 <div className="contact-detail-card">

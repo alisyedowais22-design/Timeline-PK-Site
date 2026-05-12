@@ -1,143 +1,80 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 const Events = () => {
-  const [filterType, setFilterType] = useState('all');
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Gallery with 20 images - auto-sliding
-  const gallery = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    image: `/events/eventpic${i + 1}.webp`,
-    caption: "IOT Summit 2025"
-  }));
-
-  // Auto-slide effect
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % gallery.length);
-    }, 2000); // Change slide every 2 seconds
-
-    return () => clearInterval(timer);
-  }, [gallery.length]);
-
-  // Manual navigation
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % gallery.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + gallery.length) % gallery.length);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
-
-  // Upcoming Events Data
-  const upcomingEvents = [
+  const pastEvents = [
     {
       id: 1,
-      title: "IOT Summit Pakistan 2026",
+      title: "IoT Summit 2025 Pakistan",
       date: "March 15-16, 2025",
-      time: "9:00 AM - 5:00 PM",
-      location: "Expo Center Karachi",
-      type: "conference",
-      featured: true,
-      videoUrl: "/events/iot-summit-video.mp4",
-      description: "Pakistan's premier IoT and telematics technology conference. Join 500+ industry leaders, explore cutting-edge solutions, and network with global partners.",
-      highlights: ["50+ Speakers", "100+ Exhibitors", "Live Demos", "Networking Sessions"],
-      status: "Registration Open",
-      registrationLink: "/contact",
+      location: "Pearl Continental Hotel Karachi",
+      type: "CONFERENCE",
+      eventImage: "/iotsummit2025/iot10.jpg",
+      attendees: "500+",
+      speakers: "50+",
+      exhibitors: "100+",
+      description: "Pakistan's largest IoT & Telematics conference featuring JimiIoT and Qoho Vision product launches, live demonstrations, and networking sessions with industry leaders.",
+      detailLink: "/events/iot-summit-2025"
     },
     {
       id: 2,
-      title: "Fleet Management Workshop",
-      date: "April 10, 2025",
-      time: "2:00 PM - 6:00 PM",
-      location: "Timeline Office, Lahore",
-      type: "workshop",
-      featured: false,
-      image: "/events/workshop.jpg",
-      description: "Hands-on workshop covering AI dashcams, GPS tracking, and Teletix platform training. Limited seats available.",
-      highlights: ["Hands-on Training", "Certificate", "Free Demo Devices", "Q&A Session"],
-      status: "Limited Seats",
-      registrationLink: "/contact",
+      title: "Jimi IoT Product Display at PTCL",
+      date: "May 5, 2025",
+      location: "Karachi, Pakistan",
+      type: "PRODUCT DISPLAY",
+      eventImage: "/ptclevent2025/ptcl4.jpg",
+      attendees: "150+",
+      speakers: "15+",
+      exhibitors: "30+",
+      description: "Exclusive networking event for fleet owners showcasing real-world case studies, ROI success stories, and one-on-one consultations with telematics experts.",
+      detailLink: "/events/ptcl-connect-2025"
     },
     {
       id: 3,
-      title: "Smart Transport Expo",
-      date: "May 22-24, 2025",
-      time: "10:00 AM - 7:00 PM",
-      location: "Alhamra Arts Council, Lahore",
-      type: "expo",
-      featured: false,
-      image: "/events/transport-expo.jpg",
-      description: "Showcasing the future of transportation technology. Test drive smart vehicles and see IoT solutions in action.",
-      highlights: ["Live Vehicle Demos", "Tech Showcases", "Industry Talks", "Startup Zone"],
-      status: "Early Bird Pricing",
-      registrationLink: "/contact",
-    },
+      title: "ITCN 2025",
+      date: "September 10-12, 2025",
+      location: "Karachi Expo Centre, Pakistan",
+      type: "TECH EXPO",
+      eventImage: "/itcn2025/itcn3.jpg",
+      attendees: "800+",
+      speakers: "80+",
+      exhibitors: "200+",
+      description: "Pakistan's premier technology exhibition featuring cutting-edge telematics solutions, fleet management innovations, and next-generation GPS tracking systems with live demonstrations and expert panels.",
+      detailLink: "/events/itcn-asia-2025"
+    }
   ];
-
-  // Past Events Data
-  const pastEvents = [
-    {
-      id: 4,
-      title: "IoT Summit 2025 Pakistan",
-      date: "2025",
-      location: "Pearl Continental Hotel Karachi",
-      type: "conference",
-      image: "/events/eventpic12.webp",
-      attendees: "300+",
-      summary: "Successful event highlighting JimiIoT and Qoho Vision product launches in Pakistan. Featured live demos and panel discussions.",
-    },
-    {
-      id: 5,
-      title: "Jimi IoT Product Display at PTCL Connect 2025",
-      date: "May 5, 2025",
-      location: "Pearl Continental Hotel, Karachi",
-      type: "meetup",
-      image: "/events/ptclevent.webp",
-      attendees: "150+",
-      summary: "Exclusive networking event for fleet owners. Shared case studies and ROI success stories from early adopters.",
-    },
-  ];
-
-  // Speakers/Partners
-  const speakers = [
-    { name: "Dr. Ahmed Khan", role: "CEO, JimiIoT Pakistan", image: "/speakers/speaker-1.jpg" },
-    { name: "Sarah Ali", role: "Director, Qoho Vision MENA", image: "/speakers/speaker-2.jpg" },
-    { name: "Hassan Raza", role: "CTO, Timeline Telematics", image: "/speakers/speaker-3.jpg" },
-    { name: "Maria Shah", role: "IoT Industry Expert", image: "/speakers/speaker-4.jpg" },
-  ];
-
-  const filteredEvents = filterType === 'all' 
-    ? upcomingEvents 
-    : upcomingEvents.filter(e => e.type === filterType);
 
   return (
     <>
       <Navbar />
       <main>
-
-        {/* ═══ HERO BANNER WITH VIDEO ═══ */}
+        {/* HERO WITH VIDEO */}
         <section className="events-hero-video">
-          <video
-            className="hero-background-video"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/events/eventvid.mp4" type="video/mp4" />
-            <source src="/events/hero-video.webm" type="video/webm" />
-          </video>
-          {/*
+          <div className="hero-background-video">
+            <iframe
+              src="https://www.youtube.com/embed/2XpmfZZI4Wc?autoplay=1&mute=1&loop=1&playlist=2XpmfZZI4Wc&controls=0&showinfo=0&rel=0&playsinline=1"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '100vw',
+                height: '56.25vw',
+                minHeight: '100%',
+                minWidth: '177.77vh',
+                border: 'none',
+                pointerEvents: 'none',
+              }}
+            />
+          </div>
+          
           <div className="container hero-video-content">
             <div className="events-hero-content">
               <div className="section-badge-outer" style={{ marginBottom: 20 }}>
-                <span className="section-badge-text">UPCOMING EVENTS</span>
+                <span className="section-badge-text">OUR EVENTS</span>
               </div>
 
               <h1 className="events-hero-title">
@@ -165,10 +102,10 @@ const Events = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </section>
 
-        {/* ═══ FEATURED EVENT ═══ */}
+        {/* FEATURED EVENT WITH VIDEO */}
         <section className="featured-event-section">
           <div className="container">
             <div className="featured-event-card-video">
@@ -185,14 +122,14 @@ const Events = () => {
                       <span className="fem-icon">📅</span>
                       <div>
                         <div className="fem-label">DATE</div>
-                        <div className="fem-value">2025</div>
+                        <div className="fem-value">March 15-16, 2025</div>
                       </div>
                     </div>
                     <div className="fem-item">
                       <span className="fem-icon">📍</span>
                       <div>
                         <div className="fem-label">VENUE</div>
-                        <div className="fem-value">Pearl Continental Karachi</div>
+                        <div className="fem-value">PC Hotel Karachi</div>
                       </div>
                     </div>
                     <div className="fem-item">
@@ -213,18 +150,13 @@ const Events = () => {
                 
                 {/* Video Player */}
                 <div className="featured-event-video">
-                  <div className="featured-event-video-box">
-                    <video
-                      className="featured-video-player"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    >
-                      <source src="/events/iotsummitvid.mp4" type="video/mp4" />
-                      <source src="/events/iot-summit-video.webm" type="video/webm" />
-                      Your browser does not support the video tag.
-                    </video>
+                  <div className="featured-event-video-box" style={{ width: '100%', height: '300px' }}>
+                    <iframe
+                      src="https://www.youtube.com/embed/_4pSBAcewU8?autoplay=1&mute=1&loop=1&playlist=_4pSBAcewU8&controls=0&showinfo=0&rel=0&playsinline=1"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      style={{ border: 'none', width: '100%', height: '100%', borderRadius: '12px' }}
+                    />
                   </div>
                 </div>
               </div>
@@ -232,167 +164,123 @@ const Events = () => {
           </div>
         </section>
 
-        <div className="sec-head">
-          <h2 className="sec-title">Upcoming <span className="gradient-text">Events</span></h2>
-          <p className="sec-sub">Register now and reserve your spot at our upcoming industry events</p>
-        </div>
-
-        {/* ═══ PAST EVENTS ═══ */}
-        <section className="section-padding bg-white">
-          <div className="container">
-            <div className="sec-head">
-              <h2 className="sec-title">Past <span className="gradient-text">Events</span></h2>
-              <p className="sec-sub">Highlights from our successful events in 2024</p>
-            </div>
-            <div className="past-events-grid">
-              {pastEvents.map((event) => (
-                <div key={event.id} className="past-event-card card-hover">
-                  <div className="past-event-image">
-                    <img 
-                      src={event.image} 
-                      alt={event.title}
-                      onError={(e) => {
-                        e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI4MCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5Y2EzYWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7wn5OHIFBhc3QgRXZlbnQ8L3RleHQ+PC9zdmc+";
-                      }}
-                    />
-                    <div className="past-event-attendees">👥 {event.attendees} Attendees</div>
-                  </div>
-                  <div className="past-event-content">
-                    <div className="past-event-type">{event.type}</div>
-                    <h3 className="past-event-title">{event.title}</h3>
-                    <div className="past-event-date">
-                      <span className="ped-icon">📅</span>
-                      {event.date}
-                    </div>
-                    <div className="past-event-location">
-                      <span className="pel-icon">📍</span>
-                      {event.location}
-                    </div>
-                    <p className="past-event-summary">{event.summary}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ EVENT GALLERY ═══ */}
-        <section className="section-padding" style={{ background: '#0f172a' }}>
-          <div className="container">
-            <div className="sec-head">
-              
-              <p className="sec-sub" style={{ color: '#94a3b8' }}>
-                Moments captured from our past events
-              </p>
-            </div>
-            <div className="gallery-grid">
-              {gallery.map((item) => (
-                <div key={item.id} className="gallery-item">
-                  <img 
-                    src={item.image} 
-                    alt={item.caption}
-                    onError={(e) => {
-                      e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzFmMjkzNyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM0YjU1NjMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7wn5O3IEdhbGxlcnkgSW1hZ2U8L3RleHQ+PC9zdmc+";
-                    }}
-                  />
-                  <div className="gallery-caption">{item.caption}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ EVENT GALLERY SLIDER ═══ */}
-        <section className="section-padding" style={{ background: '#0f172a' }}>
-          <div className="container">
-            <div className="sec-head">
-              <h2 className="sec-title" style={{ color: 'white' }}>
-                Event <span className="gradient-text">Gallery</span>
+        {/* PAST EVENTS */}
+        <section style={{ padding: '80px 0', background: '#ffffff' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 32px' }}>
+            
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '36px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
+                Past <span style={{ color: '#dc2626' }}>Events</span>
               </h2>
-              <p className="sec-sub" style={{ color: '#94a3b8' }}>
-                Moments captured from our past events
+              <p style={{ fontSize: '15px', color: '#6b7280' }}>
+                Highlights from our successful events
               </p>
             </div>
 
-            {/* Auto-Sliding Gallery */}
-            <div className="gallery-slider">
-              <div className="gallery-slider-container">
-                {gallery.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className={`gallery-slide ${index === currentSlide ? 'gallery-slide-active' : ''}`}
-                    style={{
-                      display: index === currentSlide ? 'block' : 'none'
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+              gap: '32px'
+            }}>
+              {pastEvents.map((event) => (
+                <div key={event.id} style={{
+                  background: '#ffffff',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.borderColor = '#dc2626';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                }}
+                >
+                  <div style={{
+                    width: '100%', height: '320px',
+                    overflow: 'hidden', background: '#f3f4f6', position: 'relative'
+                  }}>
+                    <img 
+                      src={event.eventImage}
+                      alt={event.title}
+                      loading="lazy"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                    <div style={{
+                      position: 'absolute', top: '16px', left: '16px',
+                      padding: '6px 14px', background: '#fef3c7', color: '#92400e',
+                      borderRadius: '6px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase'
+                    }}>
+                      {event.type}
+                    </div>
+                  </div>
+
+                  <div style={{ padding: '32px' }}>
+                    <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#111827', marginBottom: '16px', lineHeight: 1.2 }}>
+                      {event.title}
+                    </h3>
+
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', color: '#6b7280', fontSize: '14px' }}>
+                        <span>📅</span><span>{event.date}</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#6b7280', fontSize: '14px' }}>
+                        <span>📍</span><span>{event.location}</span>
+                      </div>
+                    </div>
+
+                    <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.6, marginBottom: '24px' }}>
+                      {event.description}
+                    </p>
+
+                    <div style={{
+                      display: 'flex', gap: '24px',
+                      paddingBottom: '24px', borderBottom: '1px solid #e5e7eb', marginBottom: '24px'
+                    }}>
+                      <div>
+                        <div style={{ fontSize: '20px', fontWeight: 800, color: '#dc2626' }}>{event.attendees}</div>
+                        <div style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 600, textTransform: 'uppercase' }}>Attendees</div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '20px', fontWeight: 800, color: '#dc2626' }}>{event.speakers}</div>
+                        <div style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 600, textTransform: 'uppercase' }}>Speakers</div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '20px', fontWeight: 800, color: '#dc2626' }}>{event.exhibitors}</div>
+                        <div style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 600, textTransform: 'uppercase' }}>Exhibitors</div>
+                      </div>
+                    </div>
+
+                    <Link to={event.detailLink} style={{
+                      display: 'block', textAlign: 'center', padding: '14px 24px',
+                      background: 'linear-gradient(135deg, #dc2626, #ef4444)',
+                      color: 'white', borderRadius: '10px', fontSize: '15px',
+                      fontWeight: 700, textDecoration: 'none', transition: 'all 0.3s'
                     }}
-                  >
-                    <img 
-                      src={item.image} 
-                      alt={item.caption}
-                      onError={(e) => {
-                        e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjMWYyOTM3Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgZmlsbD0iIzRiNTU2MyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPvCfk7cgRXZlbnQgSW1hZ2UgIyR7aXRlbS5pZH08L3RleHQ+PC9zdmc+";
-                      }}
-                    />
-                    <div className="gallery-slide-caption">{item.caption}</div>
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(220, 38, 38, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                    >
+                      View Event Gallery →
+                    </Link>
                   </div>
-                ))}
-              </div>
-
-              {/* Navigation Arrows */}
-              <button className="gallery-arrow gallery-arrow-left" onClick={prevSlide}>
-                ‹
-              </button>
-              <button className="gallery-arrow gallery-arrow-right" onClick={nextSlide}>
-                ›
-              </button>
-
-              {/* Dots Navigation */}
-              <div className="gallery-dots">
-                {gallery.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`gallery-dot ${index === currentSlide ? 'gallery-dot-active' : ''}`}
-                    onClick={() => goToSlide(index)}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-
-              {/* Slide Counter */}
-              <div className="gallery-counter">
-                {currentSlide + 1} / {gallery.length}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ SPEAKERS/PARTNERS ═══ */}
-        <section className="section-padding bg-white">
-          <div className="container">
-            <div className="sec-head">
-              <h2 className="sec-title">Featured <span className="gradient-text">Speakers</span></h2>
-              <p className="sec-sub">Industry experts and thought leaders at our events</p>
-            </div>
-            <div className="speakers-grid">
-              {speakers.map((speaker, i) => (
-                <div key={i} className="speaker-card card-hover">
-                  <div className="speaker-image">
-                    <img 
-                      src={speaker.image} 
-                      alt={speaker.name}
-                      onError={(e) => {
-                        e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGZpbGw9IiNkYzI2MjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7wn5eL77iPPC90ZXh0Pjwvc3ZnPg==";
-                      }}
-                    />
-                  </div>
-                  <h3 className="speaker-name">{speaker.name}</h3>
-                  <p className="speaker-role">{speaker.role}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ═══ BOTTOM CTA ═══ */}
+        {/* CTA */}
         <section className="mini-cta">
           <div className="container">
             <h2 style={{ color: 'white', fontSize: 28, fontWeight: 700, marginBottom: 12 }}>

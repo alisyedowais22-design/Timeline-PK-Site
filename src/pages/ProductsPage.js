@@ -1,249 +1,177 @@
+import './ProductsPage.css';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const ProductsPage = () => {
-  const [activeTab, setActiveTab] = useState('video');
+  const navigate = useNavigate();
+  const [activeFilters, setActiveFilters] = useState([]);
 
-  const videoProducts = [
+  const categories = [
     {
-      model: 'JC182',
-      name: 'AI DashCam Pro',
-      image: '/products/jc182.jpg',
-      badge: 'Best Seller',
-      features: ['4G LTE', 'AI ADAS', 'Dual Camera', 'Live Stream', 'Cloud Storage'],
-      description: 'Advanced AI dashcam with dual-channel recording, real-time alerts and live video streaming.',
+      id: 'vehicle',
+      label: 'Vehicle Trackers',
+      desc: 'Real-time GPS trackers for all vehicle types',
+      products: [
+        { id: 'gt06n-4g', model: 'GT06N 4G', image: '/products/GT06N 4G.png', name: 'Classic, Reimagined in 4G' },
+        { id: 'vg03',     model: 'VG03',     image: '/products/VG03.png',      name: 'Discreet Tracking' },
+        { id: 'vl103d',   model: 'VL103D',   image: '/products/VL103D.png',    name: 'Tiny Device' },
+        { id: 'vl103m',   model: 'VL103M',   image: '/products/VL103M.png',    name: 'Minimal Form' },
+        { id: 'vl110c',   model: 'VL110C',   image: '/products/VL110C.png',    name: 'Any Vehicle' },
+        { id: 'vl802',    model: 'VL802',    image: '/products/VL802.png',     name: 'More Visibility' },
+        { id: 'vl808',    model: 'VL808',    image: '/products/VL808.png',     name: 'Intelligent Tracking' },
+        { id: 'x3',       model: 'X3',       image: '/products/X3.png',        name: 'Voice Tracker' },
+        { id: 'gt06n',    model: 'GT06N',    image: '/products/GT06N.png',     name: 'The Classic' },
+      ]
     },
     {
-      model: 'JC170',
-      name: 'Fleet DashCam',
-      image: '/products/jc170.jpg',
-      badge: '',
-      features: ['4G LTE', '1080p HD', 'GPS Tracking', 'G-Sensor', 'Night Vision'],
-      description: 'Professional fleet dashcam with high-definition recording and GPS integration.',
+      id: 'can_obd',
+      label: 'CAN & OBD Trackers',
+      desc: 'Deep vehicle data via CAN bus integration',
+      products: [
+        { id: 'vl502', model: 'VL502', image: '/products/VL502.png', name: 'Fleet CAN Tracker' },
+      ]
     },
     {
-      model: 'JC181',
-      name: 'Smart DashCam',
-      image: '/products/jc181.jpg',
-      badge: 'New',
-      features: ['WiFi', 'AI Detection', 'Wide Angle', 'Loop Recording', 'App Control'],
-      description: 'Smart dashcam with WiFi connectivity and AI-powered driver behavior monitoring.',
+      id: 'asset',
+      label: 'Asset Trackers',
+      desc: 'Long-life battery trackers for valuable assets',
+      products: [
+        { id: 'll303pro', model: 'LL303PRO', image: '/products/LL303PRO.png', name: '5 Years Battery' },
+        { id: 'll301',    model: 'LL301',    image: '/products/LL301.png',    name: 'Silent Protector' },
+      ]
     },
     {
-      model: 'JC261',
-      name: '360° Camera System',
-      image: '/products/jc261.jpg',
-      badge: '',
-      features: ['360° View', '4 Cameras', 'Blind Spot', 'AI Alert', 'HD Recording'],
-      description: 'Complete 360-degree surround view system eliminating blind spots for large fleets.',
+      id: 'personal',
+      label: 'Personal Trackers',
+      desc: 'Discreet safety trackers for individuals',
+      products: [
+        { id: 'pl200', model: 'PL200', image: '/products/PL200.png', name: 'Silent Guardian' },
+      ]
     },
     {
-      model: 'JC371',
-      name: 'Truck DashCam',
-      image: '/products/jc371.jpg',
-      badge: '',
-      features: ['4CH Recording', 'Driver ID', 'Fatigue Alert', '4G LTE', 'Cloud Platform'],
-      description: 'Heavy-duty dashcam designed specifically for trucks and commercial vehicles.',
+      id: 'dashcam',
+      label: 'AI Dashcams',
+      desc: 'ADAS & DMS AI-powered dashcams for fleet safety',
+      products: [
+        { id: 'jc371',  model: 'JC371',  image: '/products/jc371.png',  name: 'AI Dashcam with ADAS' },
+        { id: 'jc450',  model: 'JC450',  image: '/products/jc450.png',  name: 'Multi-Channel AI Dashcam' },
+        { id: 'jc261',  model: 'JC261',  image: '/products/jc261.png',  name: 'Dual Camera AI Dashcam' },
+        { id: 'jc261p', model: 'JC261P', image: '/products/jc261p.png', name: 'Pro AI Dashcam' },
+        { id: 'jc400d', model: 'JC400D', image: '/products/jc400d.png', name: '4G AI Dashcam' },
+      ]
     },
     {
-      model: 'JC450',
-      name: 'Premium AI Camera',
-      image: '/products/jc450.jpg',
-      badge: 'Premium',
-      features: ['8MP Camera', 'AI ADAS+DMS', 'Solar Option', '5G Ready', 'Edge Computing'],
-      description: 'Premium AI camera system with advanced driver monitoring and ADAS capabilities.',
+      id: 'nonAidashcam',
+      label: 'Non-AI Dashcams',
+      desc: 'Reliable standalone dashcams for basic recording',
+      products: [
+        { id: 'jc181', model: 'JC181', image: '/products/jc181.png', name: 'Basic Dashcam' },
+      ]
     },
   ];
 
-  const fleetTrackers = [
-    { model: 'VG03',   name: 'Vehicle Tracker',     features: ['4G LTE', 'GPS', 'CAN Bus', 'Fuel Monitor'] },
-    { model: 'GT06D',  name: 'Basic GPS Tracker',   features: ['2G/4G', 'Real-Time GPS', 'SOS Button', 'Geo-fence'] },
-    { model: 'X3',     name: 'OBD Tracker',         features: ['OBD-II', 'Plug & Play', 'Engine Data', '4G LTE'] },
-    { model: 'VL110C', name: 'Asset Tracker',       features: ['Long Battery', 'Motion Alert', 'IP67', 'GPS+LBS'] },
-    { model: 'VL103M', name: 'Motorcycle Tracker',  features: ['Small Size', 'Waterproof', 'Anti-theft', 'GPS'] },
-    { model: 'VL808',  name: 'Personal Tracker',    features: ['Compact', 'SOS', 'Geo-fence', 'Long Battery'] },
-    { model: 'VL502',  name: 'Portable Tracker',    features: ['No Install', 'Magnetic Mount', '4G', 'App Control'] },
-    { model: 'LL301',  name: 'LTE Cat-M Tracker',   features: ['Cat-M1', 'Low Power', 'Asset Track', 'Cloud'] },
-    { model: 'LL303',  name: 'NB-IoT Tracker',      features: ['NB-IoT', 'Ultra Low Power', 'Indoor', 'IoT Platform'] },
-    { model: 'PL200',  name: 'Solar GPS Tracker',   features: ['Solar Powered', 'No Battery', 'IP67', 'Long Life'] },
-  ];
+  const toggleFilter = (id) => {
+    setActiveFilters(prev =>
+      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+    );
+  };
 
-  const qohoProducts = [
-    {
-      model: 'OS10',
-      name: '4CH AI Mobile DVR',
-      badge: 'UAE RTA Certified',
-      features: ['4 Channels', 'AI Detection', '4G LTE', 'GPS Tracking', 'Cloud Platform'],
-      description: 'UAE RTA certified 4-channel mobile DVR for buses and commercial fleets.',
-    },
-    {
-      model: 'DMS60',
-      name: 'Driver Monitor System',
-      badge: '',
-      features: ['Face Recognition', 'Drowsy Alert', 'Phone Detection', 'Seatbelt', 'AI Engine'],
-      description: 'Advanced driver monitoring system using AI to detect fatigue and distraction.',
-    },
-    {
-      model: 'Firetruck DVR',
-      name: 'Emergency Vehicle DVR',
-      badge: 'Specialized',
-      features: ['Rugged Design', 'Multi-Channel', 'Real-Time', 'Cloud Backup', 'Wide Temp'],
-      description: 'Rugged DVR system designed for fire trucks and emergency response vehicles.',
-    },
-    {
-      model: 'Train MNVR',
-      name: 'Rail Vehicle Recorder',
-      badge: '',
-      features: ['Rail Grade', '8CH Recording', 'Event Trigger', 'GPS', 'Remote Access'],
-      description: 'Professional mobile NVR system for train and rail vehicle monitoring.',
-    },
-  ];
+  const visibleCategories = activeFilters.length === 0
+    ? categories
+    : categories.filter(c => activeFilters.includes(c.id));
 
   return (
     <div className="products-page">
 
-      {/* Hero Banner */}
-      <section className="page-hero">
-        <div className="page-hero-bg"></div>
+      {/* Hero */}
+      <section className="products-hero">
         <div className="container">
-          <div className="page-hero-content">
-            <span className="page-badge">OUR PRODUCTS</span>
-            <h1 className="page-hero-title">
-              Complete IoT & Telematics
-              <span className="gradient-text"> Product Range</span>
-            </h1>
-            <p className="page-hero-desc">
-              JimiIoT AI Dashcams, Fleet GPS Trackers & Qoho Vision Mobile DVR Systems — 
-              All available through Timeline Telematics Pakistan.
-            </p>
-            <div className="page-hero-stats">
-              <div className="page-stat"><span className="page-stat-num">20+</span><span className="page-stat-label">Products</span></div>
-              <div className="page-stat"><span className="page-stat-num">100+</span><span className="page-stat-label">Countries</span></div>
-              <div className="page-stat"><span className="page-stat-num">50K+</span><span className="page-stat-label">Devices Sold</span></div>
-            </div>
-          </div>
+          <h1 className="products-hero-title">GPS Tracking Devices</h1>
+          <p className="products-hero-subtitle">Intelligent Integrated Tracking Solutions</p>
+          <p className="products-hero-desc">
+            Timeline provides complete solutions for real-time GPS fleet management, vehicle security,
+            personal tracking, asset monitoring, and AI-powered dashcams.
+          </p>
         </div>
       </section>
 
-      {/* Tab Navigation */}
-      <section className="products-tabs-section">
+      {/* Filter Bar */}
+      <div className="products-filter-bar">
         <div className="container">
-          <div className="tabs-nav">
-            <button
-              className={`tab-btn ${activeTab === 'video' ? 'tab-active' : ''}`}
-              onClick={() => setActiveTab('video')}
-            >
-              🎥 Video Telematics (JimiIoT)
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'fleet' ? 'tab-active' : ''}`}
-              onClick={() => setActiveTab('fleet')}
-            >
-              📍 Fleet GPS Trackers
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'qoho' ? 'tab-active' : ''}`}
-              onClick={() => setActiveTab('qoho')}
-            >
-              📹 Qoho Vision DVR
-            </button>
+          <div className="filter-bar-inner">
+            <span className="filter-bar-label">Filter by:</span>
+            <div className="filter-bar-pills">
+              {categories.map(cat => (
+                <button
+                  key={cat.id}
+                  className={`filter-pill ${activeFilters.includes(cat.id) ? 'active' : ''}`}
+                  onClick={() => toggleFilter(cat.id)}
+                >
+                  {cat.label}
+                </button>
+              ))}
+              {activeFilters.length > 0 && (
+                <button className="filter-pill filter-pill-reset" onClick={() => setActiveFilters([])}>
+                  ✕ Clear
+                </button>
+              )}
+            </div>
           </div>
+        </div>
+      </div>
 
-          {/* Video Telematics Tab */}
-          {activeTab === 'video' && (
-            <div className="products-grid">
-              {videoProducts.map((product, index) => (
-                <div key={index} className="product-card">
-                  {product.badge && <span className="product-badge">{product.badge}</span>}
-                  <div className="product-img-wrap">
-                    <div className="product-img-placeholder">
-                      <span className="product-model-big">{product.model}</span>
-                    </div>
-                  </div>
-                  <div className="product-info">
-                    <div className="product-model-tag">JimiIoT {product.model}</div>
-                    <h3 className="product-name">{product.name}</h3>
-                    <p className="product-desc">{product.description}</p>
-                    <div className="product-features">
-                      {product.features.map((f, i) => (
-                        <span key={i} className="feature-tag">{f}</span>
-                      ))}
-                    </div>
-                    <Link to="/contact" className="product-btn">Get Quote →</Link>
-                  </div>
+      {/* Products — Category Grouped */}
+      <section className="products-main">
+        <div className="container">
+          {visibleCategories.map(cat => (
+            <div key={cat.id} className="products-category-group">
+              <div className="products-category-header">
+                <div>
+                  <h2 className="products-category-title">{cat.label}</h2>
+                  <p className="products-category-desc">{cat.desc}</p>
                 </div>
-              ))}
-            </div>
-          )}
-
-          {/* Fleet Trackers Tab */}
-          {activeTab === 'fleet' && (
-            <div className="trackers-grid">
-              {fleetTrackers.map((tracker, index) => (
-                <div key={index} className="tracker-card">
-                  <div className="tracker-icon">📡</div>
-                  <div className="tracker-model">{tracker.model}</div>
-                  <h3 className="tracker-name">{tracker.name}</h3>
-                  <div className="tracker-features">
-                    {tracker.features.map((f, i) => (
-                      <span key={i} className="feature-tag">{f}</span>
-                    ))}
-                  </div>
-                  <Link to="/contact" className="tracker-btn">Enquire →</Link>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Qoho Tab */}
-          {activeTab === 'qoho' && (
-            <div className="qoho-wrap">
-              <div className="qoho-header-banner">
-                <span className="qoho-cert-badge">🏆 UAE RTA Certified</span>
-                <h2>Qoho Vision Mobile DVR Systems</h2>
-                <p>Professional mobile recording systems for buses, trucks, emergency & rail vehicles</p>
+                <span className="products-category-count">{cat.products.length} Product{cat.products.length > 1 ? 's' : ''}</span>
               </div>
+
               <div className="products-grid">
-                {qohoProducts.map((product, index) => (
-                  <div key={index} className="product-card">
-                    {product.badge && <span className="product-badge">{product.badge}</span>}
-                    <div className="product-img-wrap">
-                      <div className="product-img-placeholder">
-                        <span className="product-model-big">📹</span>
-                      </div>
+                {cat.products.map(product => (
+                  <div
+                    key={product.id}
+                    className="product-card"
+                    onClick={() => navigate(`/products/${product.id}`)}
+                  >
+                    <div className="product-image-wrapper">
+                      <img
+                        src={product.image}
+                        alt={product.model}
+                        className="product-image"
+                        onError={e => { e.target.style.display = 'none'; }}
+                      />
                     </div>
                     <div className="product-info">
-                      <div className="product-model-tag">Qoho {product.model}</div>
-                      <h3 className="product-name">{product.name}</h3>
-                      <p className="product-desc">{product.description}</p>
-                      <div className="product-features">
-                        {product.features.map((f, i) => (
-                          <span key={i} className="feature-tag">{f}</span>
-                        ))}
-                      </div>
-                      <Link to="/contact" className="product-btn">Get Quote →</Link>
+                      <h3 className="product-model">{product.model}</h3>
+                      <p className="product-name-tag">{product.name}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          )}
+          ))}
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="page-cta-section">
+      {/* CTA */}
+      <section className="products-cta">
         <div className="container">
-          <div className="page-cta-box">
-            <h2>Need Help Choosing the Right Product?</h2>
-            <p>Our experts will guide you to the best solution for your fleet size and requirements.</p>
-            <div className="page-cta-btns">
-              <Link to="/contact" className="btn-primary">Talk to an Expert →</Link>
-              <Link to="/platform" className="btn-secondary">See Our Platform</Link>
-            </div>
+          <div className="cta-box">
+            <h2 className="cta-title">Get Solution Now!</h2>
+            <p className="cta-text">Contact us today to find the perfect GPS tracking solution for your fleet</p>
+            <Link to="/contact" className="cta-btn">Contact Us →</Link>
           </div>
         </div>
       </section>
+
     </div>
   );
 };

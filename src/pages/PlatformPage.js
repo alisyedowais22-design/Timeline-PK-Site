@@ -9,6 +9,7 @@ const PlatformPage = () => {
       title: 'Teletix Web App',
       subtitle: 'Full-featured browser-based fleet management dashboard',
       icon: '🖥️',
+      externalLink: '#',  
       features: [
         { icon: '🗺️', title: 'Real-Time Tracking', desc: 'Live GPS tracking of all vehicles on an interactive map with route history.' },
         { icon: '📊', title: 'Analytics Dashboard', desc: 'Comprehensive reports on fuel, speed, driver behavior, and fleet performance.' },
@@ -22,6 +23,7 @@ const PlatformPage = () => {
       title: 'Teletix PRO Mobile',
       subtitle: 'Powerful fleet management in your pocket — iOS & Android',
       icon: '📱',
+      externalLink: 'https://play.google.com/store/apps/details?id=com.tlteletix.pro&pcampaignid=web_share',  // ← MOBILE APP LINK
       features: [
         { icon: '📡', title: 'Live Vehicle Feed', desc: 'Monitor your entire fleet in real-time from anywhere with mobile data.' },
         { icon: '🚨', title: 'Push Notifications', desc: 'Instant push alerts for all critical events — never miss an alert.' },
@@ -35,6 +37,7 @@ const PlatformPage = () => {
       title: 'Customer Portal',
       subtitle: 'Self-service portal for your clients to manage their own fleets',
       icon: '🏢',
+      externalLink: 'http://web.teletix.pk:1010/Account/LogOn/1000',  
       features: [
         { icon: '👥', title: 'Multi-Tenant Access', desc: 'Each client gets their own secure login with role-based permissions.' },
         { icon: '🔐', title: 'Secure Login', desc: 'Enterprise-grade security with 2FA and encrypted data transmission.' },
@@ -104,7 +107,22 @@ const PlatformPage = () => {
                 <h2 className="app-detail-title">{active.title}</h2>
                 <p className="app-detail-subtitle">{active.subtitle}</p>
               </div>
+              
+              {/* ✅ EXTERNAL LINK BUTTON */}
+              <a 
+                href={active.externalLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="app-external-link-btn"
+              >
+                <span>Open {active.title}</span>
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                  <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                </svg>
+              </a>
             </div>
+
             <div className="platform-features-grid">
               {active.features.map((f, i) => (
                 <div key={i} className="platform-feature-card">

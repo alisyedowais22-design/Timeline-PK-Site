@@ -27,7 +27,7 @@ const Footer = () => {
         .footer-brand {}
 
         .footer-logo-img {
-          height: 52px;
+          height: 100px;
           width: auto;
           margin-bottom: 20px;
           display: block;
@@ -279,7 +279,7 @@ const Footer = () => {
             {/* Brand */}
             <div className="footer-brand">
               <img
-                src="/Logo.png"
+                src="/TimelineLogoWhite.png"
                 alt="Timeline Telematics"
                 className="footer-logo-img"
                 onError={handleImageError}
@@ -412,7 +412,7 @@ const Footer = () => {
           {/* Bottom Bar */}
           <div className="footer-bottom">
             <p className="footer-copyright">
-              © 2025 Timeline Telematics Pvt. Ltd. All rights reserved.
+              © 2026 Timeline Telematics Pvt. Ltd. All rights reserved.
             </p>
             
             <div className="footer-bottom-links">

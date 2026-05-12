@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const Features = () => {
   const canvasRef = useRef(null);
@@ -65,61 +66,90 @@ const Features = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const features = [
+  const platforms = [
     {
-      icon: '🚀',
-      title: 'Web App',
-      //description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buttonText: 'Visit Us'
+      title: 'Teletix Web App',
+      subtitle: 'Complete Fleet Management Dashboard',
+      description: 'Access your entire fleet operations through our comprehensive web platform with real-time tracking and analytics.',
+      link: '#',
+      features: ['Live Tracking', 'Reports & Analytics', 'Fleet Management', 'Alerts & Notifications']
     },
     {
-      icon: '⚡',
-      title: 'Visit Us',
-      //description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buttonText: 'Visit Us'
+      title: 'Teletix Mobile App',
+      subtitle: 'Fleet Control On-the-Go',
+      description: 'Monitor and manage your fleet from anywhere with our powerful mobile application for iOS and Android.',
+      link: 'https://play.google.com/store/apps/details?id=com.tlteletix.pro&pcampaignid=web_share',
+      features: ['Real-Time Updates', 'Push Notifications', 'Live Video Feed', 'Driver Communication']
     },
     {
-      icon: '🛡️',
-      title: 'Portal',
-      //description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buttonText: 'Visit Us'
+      title: 'Customer Portal',
+      subtitle: 'Client Self-Service Platform',
+      description: 'Secure portal for enterprise clients to manage devices, view reports, and access support resources 24/7.',
+      link: 'http://web.teletix.pk/',
+      features: ['Device Management', 'Custom Reports', 'User Access Control', 'WhatsApp Integration']
     }
   ];
 
   return (
-    <section className="features-section">
+    <section className="features-section-pro">
       <canvas ref={canvasRef} className="features-canvas" />
       <div className="features-gradient"></div>
 
       <div className="container">
-        <div className="features-header">
-          <div className="section-badge">FEATURES</div>
-          <h2 className="section-title">Why Choose Timeline Telematics</h2>
-          <p className="section-description">
-            Powerful features designed to transform your fleet operations
+        <div className="features-header-pro">
+          <span className="section-badge">TELETIX PLATFORM</span>
+          <h2 className="section-title-pro">Comprehensive Fleet Management Solutions</h2>
+          <p className="section-desc-pro">
+            Access powerful tracking tools across web, mobile, and portal — all connected in real-time
           </p>
         </div>
 
-        <div className="features-grid">
-          {features.map((feature, index) => (
+        <div className="features-grid-pro">
+          {platforms.map((platform, index) => (
             <div 
               key={index} 
-              className="feature-box"
-              style={{ animationDelay: `${index * 0.2}s` }}
+              className="feature-card-pro"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="feature-icon">{feature.icon}</div>
-              <h3 className="feature-title">{feature.title}</h3>
-              <p className="feature-description">{feature.description}</p>
+              <div className="feature-card-header-pro">
+                <h3 className="feature-card-title-pro">{platform.title}</h3>
+                <p className="feature-card-subtitle-pro">{platform.subtitle}</p>
+              </div>
               
-              {/* BUTTON ADDED HERE */}
-              <button className="feature-button">
-                <span>{feature.buttonText}</span>
+              <p className="feature-card-desc-pro">{platform.description}</p>
+              
+              <div className="feature-card-features-pro">
+                {platform.features.map((feature, i) => (
+                  <div key={i} className="feature-item-pro">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
+                      <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <a 
+                href={platform.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="feature-card-button-pro"
+              >
+                <span>Access Platform</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-              </button>
+              </a>
             </div>
           ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="features-cta-pro">
+          <p className="features-cta-text-pro">Need help choosing the right platform?</p>
+          <Link to="/contact" className="features-cta-button-pro">
+            Talk to Expert →
+          </Link>
         </div>
       </div>
     </section>
