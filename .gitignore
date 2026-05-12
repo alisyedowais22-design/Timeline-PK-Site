@@ -1,2 +1,4 @@
 node_modules
-/build
+/build/build
+public/events/*.mp4
+public/events/*.MP4
