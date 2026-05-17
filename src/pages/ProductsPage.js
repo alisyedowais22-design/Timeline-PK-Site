@@ -139,7 +139,7 @@ const ProductsPage = () => {
                   <div
                     key={product.id}
                     className="product-card"
-                    onClick={() => navigate(`/products/${product.id}`)}
+                    onClick={() => navigate(`/our-products/${product.id}`)}
                   >
                     <div className="product-image-wrapper">
                       <img

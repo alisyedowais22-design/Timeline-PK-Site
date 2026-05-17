@@ -687,9 +687,9 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('features');
-  const [formData, setFormData] = useState({
-    firstName: '', lastName: '', email: '',
-    company: '', phone: '', country: '', message: ''
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [quoteData, setQuoteData] = useState({
+    name: '', email: '', company: '', phone: '', quantity: '', message: ''
   });
 
   const product = productDetails[productId];
@@ -702,37 +702,40 @@ const ProductDetail = () => {
     ...allRelated.filter(p => p.category !== product?.category)
   ].slice(0, 4);
 
-  const handleFormChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleQuoteChange = e => setQuoteData({ ...quoteData, [e.target.name]: e.target.value });
 
-  const handleFormSubmit = () => {
-    if (!formData.firstName || !formData.email || !formData.message) {
-      alert('Please fill in required fields: First Name, Email, and Message.');
+  const handleQuoteSubmit = () => {
+    if (!quoteData.name || !quoteData.email) {
+      alert('Please fill in Name and Email.');
       return;
     }
-    const subject = encodeURIComponent(`Product Inquiry: ${product.model} — ${formData.company || 'Timeline Telematics'}`);
+    const subject = encodeURIComponent(`Quote Request: ${product.model} — ${quoteData.company || 'Timeline Telematics'}`);
     const body = encodeURIComponent(
-`Product Inquiry — ${product.model}
+`Quote Request — ${product.model}
 
-Name: ${formData.firstName} ${formData.lastName}
-Email: ${formData.email}
-Company: ${formData.company}
-Phone: ${formData.phone}
-Country: ${formData.country}
+Name: ${quoteData.name}
+Email: ${quoteData.email}
+Company: ${quoteData.company}
+Phone: ${quoteData.phone}
+Quantity: ${quoteData.quantity}
 
-Message:
-${formData.message}
+Requirements:
+${quoteData.message}
 
 ---
 Sent from Timeline Telematics Product Page`
     );
     window.location.href = `mailto:info@teletix.me?subject=${subject}&body=${body}`;
+    setQuoteOpen(false);
   };
+
+
 
   if (!product) {
     return (
       <div className="pdp-not-found">
         <h2>Product Not Found</h2>
-        <Link to="/products" className="pdp-btn-primary">Browse Products</Link>
+        <Link to="/our-products" className="pdp-btn-primary">Browse Products</Link>
       </div>
     );
   }
@@ -751,7 +754,7 @@ Sent from Timeline Telematics Product Page`
       <div className="pdp-breadcrumb">
         <div className="pdp-container">
           <Link to="/">Home</Link><span>›</span>
-          <Link to="/products">Products</Link><span>›</span>
+          <Link to="/our-products">Products</Link><span>›</span>
           <span className="pdp-breadcrumb-active">{product.model}</span>
         </div>
       </div>
@@ -783,7 +786,7 @@ Sent from Timeline Telematics Product Page`
                 ))}
               </ul>
               <div className="pdp-hero-actions">
-                <button className="pdp-btn-primary" onClick={handleFormSubmit}>Get a Quote</button>
+                <button className="pdp-btn-primary" onClick={() => setQuoteOpen(true)}>Get a Quote</button>
                 <a href="tel:+923111122883" className="pdp-btn-outline">Call Sales</a>
               </div>
             </div>
@@ -883,7 +886,7 @@ Sent from Timeline Telematics Product Page`
           <h2 className="pdp-section-heading">Related Products</h2>
           <div className="pdp-related-grid">
             {related.map(p => (
-              <Link to={`/products/${p.id}`} key={p.id} className="pdp-related-card">
+              <Link to={`/our-products/${p.id}`} key={p.id} className="pdp-related-card">
                 <div className="pdp-related-img-box">
                   <img src={p.image} alt={p.model}
                     onError={e => { e.target.src = '/placeholder.png'; }} />
@@ -899,59 +902,154 @@ Sent from Timeline Telematics Product Page`
         </div>
       </section>
 
-      {/* ── Inquiry Form ── */}
-      <section className="pdp-inquiry-section">
+      {/* ── CTA Strip ── */}
+      <section className="pdp-cta-strip">
         <div className="pdp-container">
-          <h2 className="pdp-inquiry-heading">Drop Us an Inquiry Now!</h2>
-          <p className="pdp-inquiry-sub">Interested in <strong>{product.model}</strong>? Fill the form and our team will get back to you shortly.</p>
-          <div className="pdp-form-grid">
-            <div className="pdp-form-row">
-              <div className="pdp-form-group">
-                <label>First Name *</label>
-                <input type="text" name="firstName" value={formData.firstName} onChange={handleFormChange} placeholder="First Name" />
-              </div>
-              <div className="pdp-form-group">
-                <label>Last Name</label>
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleFormChange} placeholder="Last Name" />
-              </div>
-              <div className="pdp-form-group">
-                <label>Email *</label>
-                <input type="email" name="email" value={formData.email} onChange={handleFormChange} placeholder="Email Address" />
-              </div>
+          <div className="pdp-cta-strip-inner">
+            <div>
+              <h3>Interested in {product.model}?</h3>
+              <p>Get pricing, specs, and availability from our sales team.</p>
             </div>
-            <div className="pdp-form-row">
-              <div className="pdp-form-group">
-                <label>Company Name</label>
-                <input type="text" name="company" value={formData.company} onChange={handleFormChange} placeholder="Company Name" />
-              </div>
-              <div className="pdp-form-group">
-                <label>Phone Number</label>
-                <input type="tel" name="phone" value={formData.phone} onChange={handleFormChange} placeholder="Phone Number" />
-              </div>
-              <div className="pdp-form-group">
-                <label>Country</label>
-                <select name="country" value={formData.country} onChange={handleFormChange}>
-                  <option value="">Please Select</option>
-                  <option>Pakistan</option>
-                  <option>United Arab Emirates</option>
-                  <option>Saudi Arabia</option>
-                  <option>United Kingdom</option>
-                  <option>United States</option>
-                  <option>Other</option>
-                </select>
-              </div>
-            </div>
-            <div className="pdp-form-group pdp-form-full">
-              <label>Message *</label>
-              <textarea name="message" value={formData.message} onChange={handleFormChange} rows={5} placeholder="Tell us about your requirements..."></textarea>
-            </div>
-            <div className="pdp-form-submit">
-              <button type="button" className="pdp-btn-primary" onClick={handleFormSubmit}>Send Inquiry</button>
+            <div className="pdp-cta-strip-actions">
+              <button className="pdp-btn-primary" onClick={() => setQuoteOpen(true)}>Get a Quote</button>
+              <a href="tel:+923111122883" className="pdp-btn-outline">+92 311 1122 883</a>
             </div>
           </div>
         </div>
       </section>
 
+
+      {/* ── Quote Modal ── */}
+      {quoteOpen && (
+        <div className="pdp-modal-overlay" onClick={e => { if(e.target.classList.contains('pdp-modal-overlay')) setQuoteOpen(false); }}>
+          <div className="pdp-modal">
+            <div className="pdp-modal-header">
+              <div>
+                <h3 className="pdp-modal-title">Get a Quote</h3>
+                <p className="pdp-modal-sub">for <strong>{product.model}</strong> — {product.name}</p>
+              </div>
+              <button className="pdp-modal-close" onClick={() => setQuoteOpen(false)}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div className="pdp-modal-body">
+              <div className="pdp-modal-row">
+                <div className="pdp-modal-group">
+                  <label>Your Name *</label>
+                  <input type="text" name="name" value={quoteData.name} onChange={handleQuoteChange} placeholder="Full Name" />
+                </div>
+                <div className="pdp-modal-group">
+                  <label>Email Address *</label>
+                  <input type="email" name="email" value={quoteData.email} onChange={handleQuoteChange} placeholder="email@company.com" />
+                </div>
+              </div>
+              <div className="pdp-modal-row">
+                <div className="pdp-modal-group">
+                  <label>Company Name</label>
+                  <input type="text" name="company" value={quoteData.company} onChange={handleQuoteChange} placeholder="Company Name" />
+                </div>
+                <div className="pdp-modal-group">
+                  <label>Phone Number</label>
+                  <input type="tel" name="phone" value={quoteData.phone} onChange={handleQuoteChange} placeholder="+92 XXX XXXXXXX" />
+                </div>
+              </div>
+              <div className="pdp-modal-group">
+                <label>Expected Quantity</label>
+                <input type="text" name="quantity" value={quoteData.quantity} onChange={handleQuoteChange} placeholder="e.g., 10-50 units" />
+              </div>
+              <div className="pdp-modal-group">
+                <label>Your Requirements</label>
+                <textarea name="message" value={quoteData.message} onChange={handleQuoteChange} rows={4} placeholder="Tell us about your requirements, use case, or any questions..."></textarea>
+              </div>
+            </div>
+            <div className="pdp-modal-footer">
+              <button className="pdp-modal-cancel" onClick={() => setQuoteOpen(false)}>Cancel</button>
+              <button className="pdp-btn-primary pdp-modal-submit" onClick={handleQuoteSubmit}>
+                Send Quote Request
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{marginLeft:'8px'}}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      {/* ── Quote Modal ── */}
+      {quoteOpen && (
+        <div className="pdp-modal-overlay" onClick={e => { if(e.target.classList.contains('pdp-modal-overlay')) setQuoteOpen(false); }}>
+          <div className="pdp-modal">
+            <div className="pdp-modal-header">
+              <div className="pdp-modal-header-left">
+                <h3>Get a Quote</h3>
+                <p>Fill in your details and we'll get back to you shortly</p>
+              </div>
+              <button className="pdp-modal-close" onClick={() => setQuoteOpen(false)}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            <div className="pdp-modal-body">
+              <div className="pdp-modal-product-tag">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                Requesting quote for: <strong>{product.model}</strong>
+              </div>
+
+              <div className="pdp-modal-row">
+                <div className="pdp-modal-group">
+                  <label>Full Name *</label>
+                  <input type="text" name="name" value={quoteData.name} onChange={handleQuoteChange} placeholder="Your name" />
+                </div>
+                <div className="pdp-modal-group">
+                  <label>Email *</label>
+                  <input type="email" name="email" value={quoteData.email} onChange={handleQuoteChange} placeholder="your@email.com" />
+                </div>
+              </div>
+
+              <div className="pdp-modal-row">
+                <div className="pdp-modal-group">
+                  <label>Phone</label>
+                  <input type="tel" name="phone" value={quoteData.phone} onChange={handleQuoteChange} placeholder="+92 311 1122 883" />
+                </div>
+                <div className="pdp-modal-group">
+                  <label>Company</label>
+                  <input type="text" name="company" value={quoteData.company} onChange={handleQuoteChange} placeholder="Company name" />
+                </div>
+              </div>
+
+              <div className="pdp-modal-row">
+                <div className="pdp-modal-group">
+                  <label>Country</label>
+                  <select name="country" value={quoteData.country} onChange={handleQuoteChange}>
+                    <option value="">Select country</option>
+                    <option>Pakistan</option>
+                    <option>United Arab Emirates</option>
+                    <option>Saudi Arabia</option>
+                    <option>United Kingdom</option>
+                    <option>United States</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div className="pdp-modal-group">
+                  <label>Expected Quantity</label>
+                  <input type="text" name="quantity" value={quoteData.quantity} onChange={handleQuoteChange} placeholder="e.g. 10-50 units" />
+                </div>
+              </div>
+
+              <div className="pdp-modal-row">
+                <div className="pdp-modal-group full">
+                  <label>Your Requirement *</label>
+                  <textarea name="requirement" value={quoteData.requirement} onChange={handleQuoteChange} placeholder="Describe your requirements, use case, or questions about this product..." />
+                </div>
+              </div>
+
+              <div className="pdp-modal-footer">
+                <button className="pdp-modal-cancel" onClick={() => setQuoteOpen(false)}>Cancel</button>
+                <button className="pdp-modal-submit" onClick={handleQuoteSubmit}>Send Quote Request</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
