@@ -129,8 +129,7 @@ const Hero = () => {
                 {/* VIDEO PLAYER */}
                 <div className="video-container">
                   <iframe
-                    src="https://www.youtube.com/embed/S48XnY3M8Mk?autoplay=1&mute=1&loop=1&playlist=S48XnY3M8Mk&controls=0&showinfo=0&rel=0&playsinline=1"
-                    className="fleet-video"
+                    src="https://www.youtube.com/embed/BzQRfjLlrq4?autoplay=1&mute=1&loop=1&playlist=BzQRfjLlrq4&controls=0&showinfo=0&rel=0&playsinline=1"                    className="fleet-video"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     style={{ border: 'none', width: '100%', height: '100%' }}

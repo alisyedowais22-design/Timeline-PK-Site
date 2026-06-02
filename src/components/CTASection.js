@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CTASection = () => {
   return (
@@ -9,10 +10,17 @@ const CTASection = () => {
           <p className="cta-description">
             Join 25,000+ fleet operators who trust Timeline Telematics. Start your free 30-day trial today.
           </p>
+
           <div className="cta-buttons">
-            <button className="btn-cta-primary">Start Free Trial</button>
-            <button className="btn-cta-secondary">Schedule a Demo</button>
+            <Link to="/product-inquiry" className="btn-cta-primary">
+              Start Free Trial
+            </Link>
+
+            <Link to="/contact" className="btn-cta-secondary">
+              Schedule a Demo
+            </Link>
           </div>
+
           <p className="cta-note">No credit card required • Free 30-day trial • Cancel anytime</p>
         </div>
       </div>

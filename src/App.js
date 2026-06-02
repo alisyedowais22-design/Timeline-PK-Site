@@ -7,20 +7,17 @@ import TopBar from './components/TopBar';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import WhatsAppWidget from './components/WhatsAppWidget';
-import Hero from './components/Hero';
-import TrustBadges from './components/TrustBadges';
-import Features from './components/Features';
-import StatsSection from './components/StatsSection';
-import Solutions from './components/Solutions';
-import ROISection from './components/ROISection';
-import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 
 // Pages
+import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetail from './pages/ProductDetail';
 import PlatformPage from './pages/PlatformPage';
 import SolutionsPage from './pages/SolutionsPage';
+import CaseStudiesPage from './pages/CaseStudiesPage';
+import CaseStudyDetailPage from './pages/CaseStudyDetailPage';
+
 
 import LogisticsSolutionPage from './pages/LogisticsSolutionPage';
 import PublicTransportSolutionPage from './pages/PublicTransportSolutionPage';
@@ -39,21 +36,6 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import ProductInquiryPage from './pages/ProductInquiryPage';
 import TechnicalSupportPage from './pages/TechnicalSupportPage';
-
-// Home page
-function HomePage() {
-  return (
-    <>
-      <Hero />
-      <TrustBadges />
-      <Features />
-      <StatsSection />
-      <Solutions />
-      <ROISection />
-      <CTASection />
-    </>
-  );
-}
 
 function App() {
   return (
@@ -84,12 +66,15 @@ function App() {
           <Route path="/events/iot-summit-2025" element={<IoTSummit2025 />} />
           <Route path="/events/ptcl-connect-2025" element={<PTCLConnect2025 />} />
           <Route path="/events/itcn-asia-2025" element={<ITCN2025 />} />
+          <Route path="/case-studies" element={<CaseStudiesPage />} />
+          <Route path="/case-studies/:id" element={<CaseStudyDetailPage />} />
 
           <Route path="/team" element={<TeamPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/product-inquiry" element={<ProductInquiryPage />} />
           <Route path="/technical-support" element={<TechnicalSupportPage />} />
+          <Route path="/<CaseStudyPage id={id} />/:id" element={<CaseStudiesPage />} />
         </Routes>
 
         <Footer />

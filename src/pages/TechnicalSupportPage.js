@@ -75,7 +75,7 @@ const TechnicalSupportPage = () => {
               )}
 
               <form 
-                action="https://formsubmit.co/mehmood.ayaz@teletix.me"
+                action="https://formsubmit.co/info.pk@timelinetelematics.com"
                 method="POST"
                 className="support-form"
               >
@@ -228,7 +228,7 @@ const TechnicalSupportPage = () => {
                   </svg>
                   <div>
                     <strong>Email</strong>
-                    <a href="mailto:Info@teletix.me">Info@teletix.me</a>
+                    <a href="mailto:Info.pk@timelinetelematics.com">Info.pk@timelinetelematics.com</a>
                   </div>
                 </div>
 
@@ -238,7 +238,7 @@ const TechnicalSupportPage = () => {
                   </svg>
                   <div>
                     <strong>Phone</strong>
-                    <span>+92 3200002283</span>
+                    <span>+92 3111122883</span>
                   </div>
                 </div>
 

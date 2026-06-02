@@ -33,7 +33,7 @@ const TopBar = () => {
             <span>📞</span>
             +92 311 1122 883
           </a>
-          <a href="mailto:info@teletix.me" className="top-bar-link">
+          <a href="mailto:info.pk@timelinetelematics.com" className="top-bar-link">
             <span>✉️</span>
             info@teletix.me
           </a>

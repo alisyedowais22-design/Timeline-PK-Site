@@ -12,8 +12,7 @@ const TeamPage = () => {
     image: '/team/Mahsan.png',
     bio: 'Muhammad Ahsan Naeem is the visionary CEO of Timeline Telematics, leading the company since its inception in 2018. Under his leadership, Timeline has become Pakistan\'s premier fleet management solution provider, serving 500+ enterprises nationwide.',
     linkedin: 'https://www.linkedin.com/in/muhammad-ahsan-naeem-50177011/',
-    email: 'ahsan@teletix.me',
-    email: 'ahsan.naem@jimiiot.pk',
+    email: 'ahsan@timelinetelematics.com',
   };
 
   // Director of Finance
@@ -24,7 +23,7 @@ const TeamPage = () => {
     image: '/team/femaleavatar.jpg',
     bio: 'Director of Finance with strong expertise in financial planning, budgeting, and strategic decision-making. Skilled in managing financial operations, optimizing costs, and ensuring regulatory compliance.',
     linkedin: '#',
-    email: 'ziq.b@jimiiot.pk',
+    email: 'sobia@timelinetelematics.com',
   };
 
   // Team Members
@@ -36,7 +35,7 @@ const TeamPage = () => {
       image: '/team/mehmoodayazimg.jpg',
       bio: 'Strategic Technology Leader with 15 years of experience driving innovation in IoT platforms, telematics, and fleet management solutions.',
       linkedin: 'https://www.linkedin.com/in/mehmood-ayaz-5104281a/',
-      email: 'mehmood.ayaz@teletix.me mwhmood.ayaz@jimiiot.pk',
+      email: 'mehmood.ayaz@timelinetelematics.com',
       skills: ['Operations Management', 'Business Development', 'Strategic Planning'],
     },
     {
@@ -46,7 +45,7 @@ const TeamPage = () => {
       image: '/team/nomanbaigimg.jpg',
       bio: 'Experienced Technical Expert with 7 years of demonstrated success in fleet management systems, MDVR systems, device integration, and telematics solutions.',
       linkedin: 'https://www.linkedin.com/in/nouman-baig-88b8aa103/',
-      email: 'suppor.technical@jimilab.pk',
+      email: 'noman@timelinetelematics.com',
       skills: ['Technical Support', 'Hardware Installation', 'Customer Service'],
     },
     {
@@ -56,7 +55,7 @@ const TeamPage = () => {
       image: '/team/alihaiderimg.jpg',
       bio: 'Full Stack Developer with 4 years of experience building scalable front-end applications, backend APIs, and database-driven systems.',
       linkedin: 'https://www.linkedin.com/in/ali-haider-aab842215/',
-      email: 'support@jimilab.pk',
+      email: 'alihaider@timelinetelematics.com',
       skills: ['React', 'Node.js', 'REST API'],
     },
     {
@@ -66,7 +65,7 @@ const TeamPage = () => {
       image: '/team/boyavatar.webp',
       bio: 'Technical Support Engineer with experience in device troubleshooting, IoT systems, fleet management platforms, and technical customer support.',
       linkedin: '',
-      email: '#',
+      email: 'ahmed@timelinetelematics.com',
       skills: [''],
     },
     {
@@ -76,7 +75,7 @@ const TeamPage = () => {
       image: '/team/boyavatar.webp',
       bio: 'Technical Support Engineer with experience in device troubleshooting, IoT systems, fleet management platforms, and technical customer support.',
       linkedin: '',
-      email: '#',
+      email: 'abdullah@timelinetelematics.com',
       skills: [''],
     },
     {
@@ -86,7 +85,7 @@ const TeamPage = () => {
       image: '/team/boyavatar.webp',
       bio: 'Frontend Developer with 1 year of experience building responsive and user-friendly web interfaces using modern web technologies. Passionate about creating clean UI, improving performance, and delivering smooth user experiences.',
       linkedin: 'https://www.linkedin.com/in/syed-owais-ali-298617288/',
-      email: 'alisyedowais22@gmail.com',
+      email: 'owais@timelinetelematics.com',
       skills: ['HTML5, CSS3, JavaScript, React.js, Bootstrap, Tailwind CSS'],
     },
     {
@@ -96,7 +95,7 @@ const TeamPage = () => {
       image: '/team/saad1.png',
       bio: '.NET Developer with experience in building scalable web and desktop applications using the .NET framework.',
       linkedin: 'https://linkedin.com/in/syed-muhammad-saad-157629272',
-      email: 'smsaad578@gmail.com',
+      email: 'saad@timelinetelematics.com',
       skills: ['.NET, C#, ASP.NET, Web API, Entity Framework'],
     },
     {
@@ -106,7 +105,7 @@ const TeamPage = () => {
       image: '/team/shahzad1.png',
       bio: 'Full Stack Developer with experience building scalable front-end and back-end applications, APIs, and database-driven solutions.',
       linkedin: 'https://www.linkedin.com/in/shahzad-ali-494a2621a/',
-      email: 'shyzieli11@gmail.com',
+      email: 'shahzad@timelinetelematics.com',
       skills: ['HTML, CSS, JavaScript, React.js, Bootstrap, Tailwind CSS, .NET, ASP.NET Core, C#, REST APIs'],
     },
     {
@@ -116,7 +115,7 @@ const TeamPage = () => {
       image: '/team/boyavatar.webp',
       bio: 'Rider with experience in safe and timely delivery, route management, and customer service.',
       linkedin: '',
-      email: '#',
+      email: 'muzammil@timelinetelematics.com',
       skills: [''],
     },
   ];
@@ -136,9 +135,19 @@ const TeamPage = () => {
     <div className="team-page">
 
       {/* Professional Hero */}
-      <section className="page-hero page-hero-dark">
-        <div className="page-hero-bg"></div>
-        <div className="container">
+      
+<section
+  className="page-hero page-hero-dark"
+  style={{
+    backgroundImage:
+      "linear-gradient(rgba(5, 12, 25, 0.88), rgba(5, 12, 25, 0.90)), url('/teambackgroundimg.jpg')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'top',
+    backgroundRepeat: 'no-repeat',
+  }}
+>
+  <div className="page-hero-bg"></div>
+  <div className="container">
           <div className="page-hero-content">
             <span className="page-badge">OUR TEAM</span>
             <h1 className="page-hero-title">
@@ -314,7 +323,7 @@ const TeamPage = () => {
             <p>We're looking for talented professionals to join our growing team.</p>
             <div className="page-cta-btns">
               <Link to="/contact" className="btn-primary">View Open Positions →</Link>
-              <a href="mailto:careers@teletix.me" className="btn-secondary">Send Resume</a>
+              <a href="mailto:info@timelinetelematics.com" className="btn-secondary">Send Resume</a>
             </div>
           </div>
         </div>

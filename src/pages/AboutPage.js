@@ -12,7 +12,7 @@ const AboutPage = () => {
   const timeline = [
     { year: '2018', title: 'Company Founded', desc: 'Timeline Telematics established in Pakistan with a vision to modernize fleet management.' },
     { year: '2020', title: 'JimiIoT Partnership', desc: 'Became Pakistan\'s official authorized partner for JimiIoT GPS and telematics devices.' },
-    { year: '2022', title: 'Teletix Platform Launch', desc: 'Launched our proprietary Teletix fleet management platform — web, mobile, and portal.' },
+    { year: '2022', title: 'Platforms Launch', desc: 'Launched our proprietary fleet management platform — web, mobile, and portal.' },
     { year: '2023', title: 'Qoho Vision Partnership', desc: 'Partnered with Qoho Vision to bring UAE RTA certified Mobile DVR systems to Pakistan.' },
     { year: '2025', title: 'IOT Summit Pakistan', desc: 'Showcasing cutting-edge IoT solutions at IOT Summit 2025 — Pakistan\'s biggest tech event.' },
   ];
@@ -28,7 +28,16 @@ const AboutPage = () => {
     <div className="about-page">
 
       {/* Hero */}
-      <section className="page-hero">
+      <section
+        className="page-hero"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(5, 10, 20, 0.82), rgba(5, 10, 20, 0.86)), url('/about-hero-bg.avif')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         <div className="page-hero-bg"></div>
         <div className="container">
           <div className="page-hero-content">

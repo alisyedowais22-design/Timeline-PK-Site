@@ -331,7 +331,7 @@ const Footer = () => {
               <ul className="footer-nav-list">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/products">Products</Link></li>
-                <li><Link to="/platform">Teletix Platform</Link></li>
+              
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/team">Team</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
@@ -345,8 +345,7 @@ const Footer = () => {
                 <li><Link to="/products">AI DashCams (JimiIoT)</Link></li>
                 <li><Link to="/products">Fleet GPS Trackers</Link></li>
                 <li><Link to="/products">Mobile DVR (Qoho)</Link></li>
-                <li><Link to="/platform">Teletix Web App</Link></li>
-                <li><Link to="/platform">Teletix PRO Mobile</Link></li>
+               
               </ul>
             </div>
 
@@ -363,7 +362,7 @@ const Footer = () => {
                   <div className="footer-contact-text">
                     <span className="footer-contact-label">Email</span>
                     <span className="footer-contact-value">
-                      <a href="mailto:info@teletix.me">info@teletix.me</a>
+                      <a href="mailto:info@timelinetelematics.com">info@timelinetelematics.com</a>
                     </span>
                   </div>
                 </li>
