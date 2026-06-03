@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import contactHeroBg from '../assets/contact-hero-bg.avif';
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    phone: '',
-    email: '',
-    fleetSize: '',
-    message: '',
-  });
-
-  const [submitted, setSubmitted] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [showSuccess, setShowSuccess] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    if (searchParams.get('success') === 'true') {
+      setShowSuccess(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 10000);
+    }
+  }, [searchParams]);
 
   const faqs = [
     {
@@ -78,96 +72,94 @@ const ContactPage = () => {
             <div className="contact-form-wrap">
               <h2 className="contact-form-title">Send Us a Message</h2>
 
-              {submitted ? (
+              {showSuccess && (
                 <div className="form-success">
                   <div className="form-success-icon">✅</div>
                   <h3>Message Sent!</h3>
                   <p>Thank you for reaching out. Our team will contact you within 24 hours.</p>
                 </div>
-              ) : (
-                <form className="contact-form" onSubmit={handleSubmit}>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label>Full Name *</label>
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Your full name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>Company Name</label>
-                      <input
-                        type="text"
-                        name="company"
-                        placeholder="Your company"
-                        value={formData.company}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label>Phone / WhatsApp *</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        placeholder="+92 3XX XXXXXXX"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>Email Address</label>
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="your@email.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label>Fleet Size</label>
-                    <select
-                      name="fleetSize"
-                      value={formData.fleetSize}
-                      onChange={handleChange}
-                    >
-                      <option value="">Select fleet size</option>
-                      <option value="1-10">1–10 Vehicles</option>
-                      <option value="11-50">11–50 Vehicles</option>
-                      <option value="51-200">51–200 Vehicles</option>
-                      <option value="200+">200+ Vehicles</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label>Message *</label>
-                    <textarea
-                      name="message"
-                      rows="5"
-                      placeholder="Tell us about your requirements..."
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                    ></textarea>
-                  </div>
-
-                  <button type="submit" className="btn-primary form-submit-btn">
-                    Send Message →
-                  </button>
-                </form>
               )}
+
+              <form
+                className="contact-form"
+                action="https://formsubmit.co/info.pk@timelinetelematics.com"
+                method="POST"
+              >
+                {/* FormSubmit Configuration */}
+                <input type="hidden" name="_subject" value="📩 New Contact Form Message - Timeline Telematics" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="box" />
+                <input type="hidden" name="_next" value={`${window.location.origin}/contact?success=true`} />
+                <input type="hidden" name="_autoresponse" value="Thank you for contacting Timeline Telematics! We've received your message and our team will get back to you within 24 hours." />
+                <input type="text" name="_honey" style={{ display: 'none' }} />
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Full Name *</label>
+                    <input
+                      type="text"
+                      name="Full Name"
+                      placeholder="Your full name"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Company Name</label>
+                    <input
+                      type="text"
+                      name="Company Name"
+                      placeholder="Your company"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Phone / WhatsApp *</label>
+                    <input
+                      type="tel"
+                      name="Phone / WhatsApp"
+                      placeholder="+92 3XX XXXXXXX"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Email Address</label>
+                    <input
+                      type="email"
+                      name="Email Address"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>Fleet Size</label>
+                  <select name="Fleet Size">
+                    <option value="">Select fleet size</option>
+                    <option value="1-10 Vehicles">1–10 Vehicles</option>
+                    <option value="11-50 Vehicles">11–50 Vehicles</option>
+                    <option value="51-200 Vehicles">51–200 Vehicles</option>
+                    <option value="200+ Vehicles">200+ Vehicles</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Message *</label>
+                  <textarea
+                    name="Message"
+                    rows="5"
+                    placeholder="Tell us about your requirements..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" className="btn-primary form-submit-btn">
+                  Send Message →
+                </button>
+              </form>
             </div>
 
             {/* Contact Details */}
@@ -179,8 +171,8 @@ const ContactPage = () => {
                   <span className="contact-detail-icon">📧</span>
                   <div>
                     <h4>Email</h4>
-                    <a href="mailto:info@timelinetelematics.com">
-                      info@timelinetelematics.com
+                    <a href="mailto:info.pk@timelinetelematics.com">
+                      info.pk@timelinetelematics.com
                     </a>
                   </div>
                 </div>

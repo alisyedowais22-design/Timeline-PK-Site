@@ -147,8 +147,6 @@ const HoverDropdown = ({ label, to, children, active }) => {
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [showTopBar, setShowTopBar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileProdOpen, setMobileProdOpen] = useState(false);
@@ -163,22 +161,14 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      setScrolled(currentScrollY > 20);
-
-      if (currentScrollY > 40 && currentScrollY > lastScrollY) {
-        setShowTopBar(false);
-      } else if (currentScrollY < lastScrollY) {
-        setShowTopBar(true);
-      }
-
-      setLastScrollY(currentScrollY);
+      setScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -246,34 +236,14 @@ const Navbar = () => {
 
   return (
     <>
-      <div className={`top-bar ${showTopBar ? 'top-bar-visible' : 'top-bar-hidden'}`}>
-        <div className="top-bar-container">
-          <div className="top-bar-left">
-            <a href="tel:+923111122883" className="top-bar-link">
-              <span>+92 311 1122883</span>
-            </a>
-
-            <a href="mailto:info.pk@timelinetelematics.com" className="top-bar-link">
-              <span>info.pk@timelinetelematics.com</span>
-            </a>
-          </div>
-
-          <div className="top-bar-right">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="top-bar-social">f</a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="top-bar-social">x</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="top-bar-social">in</a>
-          </div>
-        </div>
-      </div>
-
       <nav
-        className={`navbar ${scrolled ? 'scrolled' : ''} ${!showTopBar ? 'navbar-top' : ''}`}
+        className={`navbar ${scrolled ? 'scrolled navbar-top' : ''}`}
         style={{
           background: '#fff',
           borderBottom: '1px solid #e5e7eb',
           boxShadow: scrolled ? '0 2px 16px rgba(0,0,0,0.08)' : 'none',
           position: 'fixed',
-          top: showTopBar ? '40px' : '0',
+          top: scrolled ? '0' : '40px',
           left: 0,
           right: 0,
           zIndex: 1000,
@@ -315,7 +285,6 @@ const Navbar = () => {
               flex: 1,
             }}
           >
-            {/* 1 Home */}
             <Link
               to="/"
               style={linkStyle('/')}
@@ -329,7 +298,6 @@ const Navbar = () => {
               Home
             </Link>
 
-            {/* 2 Solutions */}
             <HoverDropdown label="Solutions" to="/solutions" active={isPrefixActive('/solutions')}>
               <div style={{ padding: '12px 16px', width: '620px' }}>
                 <div
@@ -381,7 +349,6 @@ const Navbar = () => {
               </div>
             </HoverDropdown>
 
-            {/* 3 Case Studies */}
             <Link
               to="/case-studies"
               style={linkStyle('/case-studies')}
@@ -395,7 +362,6 @@ const Navbar = () => {
               Case Studies
             </Link>
 
-            {/* 4 Products */}
             <HoverDropdown label="Products" to="/our-products" active={isPrefixActive('/our-products')}>
               <div style={{ padding: '12px 16px', width: '900px' }}>
                 <div
@@ -474,6 +440,7 @@ const Navbar = () => {
                           >
                             {item.label}
                           </div>
+
                           <div
                             style={{
                               fontSize: '10.5px',
@@ -508,7 +475,6 @@ const Navbar = () => {
               </div>
             </HoverDropdown>
 
-            {/* 5 Platform */}
             <HoverDropdown label="Platform" to="/platform" active={isActive('/platform')}>
               <div style={{ padding: '12px 16px', width: '420px' }}>
                 <div
@@ -542,7 +508,6 @@ const Navbar = () => {
               </div>
             </HoverDropdown>
 
-            {/* 6 Events */}
             <Link
               to="/events"
               style={linkStyle('/events')}
@@ -556,7 +521,6 @@ const Navbar = () => {
               Events
             </Link>
 
-            {/* 7 Teams */}
             <Link
               to="/team"
               style={linkStyle('/team')}
@@ -570,7 +534,6 @@ const Navbar = () => {
               Teams
             </Link>
 
-            {/* 8 About */}
             <Link
               to="/about"
               style={linkStyle('/about')}
@@ -584,7 +547,6 @@ const Navbar = () => {
               About
             </Link>
 
-            {/* 9 Contact */}
             <HoverDropdown
               label="Contact"
               to="/contact"
