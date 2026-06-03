@@ -92,7 +92,7 @@ const FleetOverview = () => {
   style={{
     background: '#ffffff',
     padding: '90px 0 135px',
-    marginBottom: '45px',
+    marginBottom: '70px',
     position: 'relative',
     overflow: 'hidden',
     borderTop: '1px solid #f1f5f9',

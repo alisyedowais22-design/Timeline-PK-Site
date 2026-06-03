@@ -394,7 +394,7 @@ const Footer = () => {
                   <div className="footer-contact-text">
                     <span className="footer-contact-label">Email</span>
                     <span className="footer-contact-value">
-                      <a href="mailto:info@timelinetelematics.com">info@timelinetelematics.com</a>
+                      <a href="mailto:info.pk@timelinetelematics.com">info.pk@timelinetelematics.com</a>
                     </span>
                   </div>
                 </li>

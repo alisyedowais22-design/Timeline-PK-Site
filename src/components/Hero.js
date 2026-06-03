@@ -1,171 +1,147 @@
-import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';  
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Hero.css';
+
+import heroHome from '../assets/hero-home.png';
+import heroSolutions from '../assets/hero-solutions.png';
+import heroCaseStudies from '../assets/hero-case-studies.png';
+import heroProducts from '../assets/hero-products.png';
+import heroPlatform from '../assets/hero-platform.png';
+import heroEvents from '../assets/hero-events.png';
+import heroTeams from '../assets/hero-teams.png';
+
+const slides = [
+  {
+    eyebrow: 'POWERING SMART FLEET INTELLIGENCE',
+    title: 'The World Moves Fast.\nLet’s Make It Smarter.',
+    desc: 'Real-time visibility, AI dashcams, asset monitoring, and intelligent fleet solutions that help businesses improve safety, reduce costs, and stay in control of every moving asset.',
+    primaryText: 'Talk to an Expert',
+    primaryLink: '/contact',
+    secondaryText: 'Explore Solutions',
+    secondaryLink: '/solutions',
+    bg: heroHome,
+  },
+  {
+    eyebrow: 'SOLUTIONS FOR EVERY INDUSTRY',
+    title: 'Smarter Fleet Solutions\nFor Every Operation.',
+    desc: 'From logistics and construction to healthcare, government, agriculture, and public transport, Timeline Telematics delivers intelligent tracking solutions for every business need.',
+    primaryText: 'View Solutions',
+    primaryLink: '/solutions',
+    secondaryText: 'Talk to Sales',
+    secondaryLink: '/contact',
+    bg: heroSolutions,
+  },
+  {
+    eyebrow: 'REAL RESULTS. REAL IMPACT.',
+    title: 'Proven Results.\nStronger Businesses.',
+    desc: 'Discover how intelligent telematics solutions help businesses improve fleet visibility, enhance safety, reduce operational costs, and achieve measurable growth.',
+    primaryText: 'View Case Studies',
+    primaryLink: '/case-studies',
+    secondaryText: 'Client Success Stories',
+    secondaryLink: '/case-studies',
+    bg: heroCaseStudies,
+  },
+  {
+    eyebrow: 'ADVANCED TRACKING PRODUCTS',
+    title: 'Reliable Devices\nFor Smarter Fleet Control.',
+    desc: 'Explore GPS trackers, AI dashcams, CAN & OBD devices, asset trackers, personal trackers, and mobile DVR solutions built for real-time monitoring.',
+    primaryText: 'View Products',
+    primaryLink: '/our-products',
+    secondaryText: 'Request Quote',
+    secondaryLink: '/product-inquiry',
+    bg: heroProducts,
+  },
+  {
+    eyebrow: 'ONE PLATFORM. TOTAL CONTROL.',
+    title: 'Manage Your Fleet\nFrom One Powerful Platform.',
+    desc: 'Monitor live locations, routes, driver behavior, alerts, reports, assets, and performance through a connected fleet management platform designed for smarter decisions.',
+    primaryText: 'Explore Platform',
+    primaryLink: '/platform',
+    secondaryText: 'Book a Demo',
+    secondaryLink: '/contact',
+    bg: heroPlatform,
+  },
+  {
+    eyebrow: 'CONNECT. LEARN. INNOVATE.',
+    title: 'Events That Drive\nThe Telematics Future.',
+    desc: 'Join us at industry-leading events, exhibitions, and webinars where innovation, insights, and collaboration come together to shape the future of mobility.',
+    primaryText: 'View Events',
+    primaryLink: '/events',
+    secondaryText: 'Upcoming Webinars',
+    secondaryLink: '/events',
+    bg: heroEvents,
+  },
+  {
+    eyebrow: 'OUR PEOPLE. OUR STRENGTH.',
+    title: 'A Dedicated Team\nCommitted To Your Success.',
+    desc: 'Our experts work with passion and purpose to deliver innovative telematics solutions, reliable support, and better fleet outcomes every step of the way.',
+    primaryText: 'Meet Our Team',
+    primaryLink: '/team',
+    secondaryText: 'Join Our Team',
+    secondaryLink: '/contact',
+    bg: heroTeams,
+  },
+];
 
 const Hero = () => {
-  const canvasRef = useRef(null);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 6000);
 
-    const ctx = canvas.getContext('2d');
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5 + 0.2;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
-      }
-
-      draw() {
-        ctx.fillStyle = `rgba(220, 38, 38, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    const particles = [];
-    const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
-    
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    const handleResize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => clearInterval(timer);
   }, []);
 
+  const slide = slides[activeSlide];
+
   return (
-    <section className="hero-section">
-      <canvas ref={canvasRef} className="hero-canvas" />
-      <div className="hero-gradient"></div>
+    <section className="fleet-hero">
+      {slides.map((item, index) => (
+        <div
+          key={index}
+          className={`fleet-hero-bg ${index === activeSlide ? 'active' : ''}`}
+          style={{ backgroundImage: `url(${item.bg})` }}
+        />
+      ))}
 
-      <div className="container">
-        <div className="hero-content">
-          <div className="hero-left">
-            <div className="hero-badge">
-              <span className="badge-dot"></span>
-              <span>Trusted by 25,000+ Fleet Operators</span>
-            </div>
+      <div className="fleet-hero-overlay" />
 
-            <h1 className="hero-title">
-              The World Moves Fast.
-              <span className="gradient-text"> Let's Make It Smarter.</span>
-            </h1>
+      <div className="fleet-hero-content" key={activeSlide}>
+        <p className="fleet-hero-eyebrow">{slide.eyebrow}</p>
 
-            <p className="hero-description">
-              Vehicles. Assets. People. In motion, every second. 
-              We turn that motion into visibility, safety, and control so you're never left in the dark.
-            </p>
+        <h1 className="fleet-hero-title">
+          {slide.title.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index !== slide.title.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </h1>
 
-            <div className="hero-cta">
-              {/* BUTTON 1*/}
-              <Link to="/platform" className="btn-hero-primary">
-                <span>Explore Our Solutions</span>
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </Link>
+        <p className="fleet-hero-desc">{slide.desc}</p>
 
-              {/* BUTTON 2 */}
-              <Link to="/contact" className="btn-hero-secondary">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M6.5 5.5l7 4.5-7 4.5v-9z"/>
-                </svg>
-                <span>Talk to An Expert</span>
-              </Link>
-            </div>
+        <div className="fleet-hero-actions">
+          <Link to={slide.primaryLink} className="fleet-hero-btn">
+            {slide.primaryText}
+          </Link>
 
-            <div className="hero-stats">
-              <div className="stat-item">
-                <div className="stat-number">30%</div>
-                <div className="stat-label">Cost Reduction</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">99.9%</div>
-                <div className="stat-label">Uptime</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">50M+</div>
-                <div className="stat-label">Data Points/Day</div>
-              </div>
-            </div>
-          </div>
+          <Link to={slide.secondaryLink} className="fleet-hero-link">
+            {slide.secondaryText}
+          </Link>
+        </div>
 
-          <div className="hero-right">
-            <div className="dashboard-mockup">
-              <div className="map-container">
-                {/* VIDEO PLAYER */}
-                <div className="video-container">
-                  <iframe
-                    src="https://www.youtube.com/embed/BzQRfjLlrq4?autoplay=1&mute=1&loop=1&playlist=BzQRfjLlrq4&controls=0&showinfo=0&rel=0&playsinline=1"                    className="fleet-video"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    style={{ border: 'none', width: '100%', height: '100%' }}
-                  />
-                </div>
-
-                {/* STATS OVERLAY */}
-                <div className="map-stats">
-                  <div className="stat-card">
-                    <div className="stat-card-header">
-                      <span className="stat-icon">🚛</span>
-                      <span className="stat-status live">LIVE</span>
-                    </div>
-                    <div className="stat-card-value">24/30</div>
-                    <div className="stat-card-label">Active Vehicles</div>
-                  </div>
-
-                  <div className="stat-card">
-                    <div className="stat-card-header">
-                      <span className="stat-icon">📍</span>
-                    </div>
-                    <div className="stat-card-value">18</div>
-                    <div className="stat-card-label">En Route</div>
-                  </div>
-
-                  <div className="stat-card">
-                    <div className="stat-card-header">
-                      <span className="stat-icon">⚡</span>
-                    </div>
-                    <div className="stat-card-value">99.9%</div>
-                    <div className="stat-card-label">Uptime</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="fleet-hero-dots">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              className={index === activeSlide ? 'active' : ''}
+              onClick={() => setActiveSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
