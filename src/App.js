@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 // Pages
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
+import AccessoriesPage from './pages/AccessoriesPage';
 import ProductDetail from './pages/ProductDetail';
 import PlatformPage from './pages/PlatformPage';
 import SolutionsPage from './pages/SolutionsPage';
@@ -50,6 +51,7 @@ function App() {
 
           <Route path="/our-products" element={<ProductsPage />} />
           <Route path="/our-products/:productId" element={<ProductDetail />} />
+          <Route path="/accessories" element={<AccessoriesPage />} />
 
           <Route path="/platform" element={<PlatformPage />} />
 

@@ -55,6 +55,12 @@ const DEVICES = [
       { label: 'JC181', desc: 'Basic Dashcam', to: '/our-products/jc181' },
     ],
   },
+  {
+    category: 'Accessories',
+    items: [
+      { label: 'All Accessories', desc: 'Cables, Cameras & Sensors', to: '/accessories' },
+    ],
+  },
 ];
 
 const INDUSTRIES = [
@@ -362,8 +368,12 @@ const Navbar = () => {
               Case Studies
             </Link>
 
-            <HoverDropdown label="Products" to="/our-products" active={isPrefixActive('/our-products')}>
-              <div style={{ padding: '12px 16px', width: '900px' }}>
+            <HoverDropdown
+              label="Products"
+              to="/our-products"
+              active={isPrefixActive('/our-products') || isActive('/accessories')}
+            >
+              <div style={{ padding: '12px 16px', width: '1040px', maxWidth: '94vw' }}>
                 <div
                   style={{
                     fontSize: '10.5px',
@@ -396,7 +406,7 @@ const Navbar = () => {
                   </Link>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '6px 12px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '6px 12px' }}>
                   {DEVICES.map((cat) => (
                     <div key={cat.category}>
                       <div
