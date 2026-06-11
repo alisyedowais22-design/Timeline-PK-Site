@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const MenuIcon = () => <span style={{ fontSize: '24px' }}>☰</span>;
-const CloseIcon = () => <span style={{ fontSize: '24px' }}>✕</span>;
+const MenuIcon = () => <span style={{ fontSize: '24px', lineHeight: 1 }}>☰</span>;
+const CloseIcon = () => <span style={{ fontSize: '24px', lineHeight: 1 }}>✕</span>;
 const ChevronDown = () => <span style={{ fontSize: '12px', marginLeft: '4px' }}>▼</span>;
 
 const DEVICES = [
@@ -184,6 +184,18 @@ const Navbar = () => {
     setMobileContactOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
   const linkStyle = (to) => ({
     padding: '7px 10px',
     fontSize: '13.5px',
@@ -199,14 +211,43 @@ const Navbar = () => {
 
   const mobileLinkStyle = (to) => ({
     display: 'block',
-    padding: '11px 0',
+    width: '100%',
+    padding: '13px 0',
     fontSize: '15px',
-    fontWeight: 600,
+    fontWeight: 700,
     fontFamily: 'Poppins, sans-serif',
     color: isActive(to) ? '#E8312A' : '#374151',
     borderBottom: '1px solid #f3f4f6',
     textDecoration: 'none',
   });
+
+  const mobileButtonStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    padding: '13px 0',
+    fontSize: '15px',
+    fontWeight: 700,
+    fontFamily: 'Poppins, sans-serif',
+    color: '#374151',
+    background: 'none',
+    border: 'none',
+    borderBottom: '1px solid #f3f4f6',
+    cursor: 'pointer',
+    textAlign: 'left',
+  };
+
+  const mobileSubLinkStyle = {
+    display: 'block',
+    padding: '10px 0',
+    fontSize: '13.5px',
+    fontWeight: 600,
+    color: '#374151',
+    borderBottom: '1px solid #f9fafb',
+    textDecoration: 'none',
+    fontFamily: 'Poppins, sans-serif',
+  };
 
   const smallMenuItem = {
     display: 'block',
@@ -243,13 +284,13 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`navbar ${scrolled ? 'scrolled navbar-top' : ''}`}
+        className={`navbar mobile-safe-navbar ${scrolled ? 'scrolled navbar-top' : ''}`}
         style={{
           background: '#fff',
           borderBottom: '1px solid #e5e7eb',
           boxShadow: scrolled ? '0 2px 16px rgba(0,0,0,0.08)' : 'none',
           position: 'fixed',
-          top: scrolled ? '0' : '40px',
+          top: scrolled ? '0' : window.innerWidth <= 768 ? '36px' : '40px',
           left: 0,
           right: 0,
           zIndex: 1000,
@@ -257,6 +298,7 @@ const Navbar = () => {
         }}
       >
         <div
+          className="mobile-safe-navbar-shell"
           style={{
             maxWidth: '1280px',
             margin: '0 auto',
@@ -268,8 +310,18 @@ const Navbar = () => {
             gap: '14px',
           }}
         >
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
+          <Link
+            to="/"
+            className="mobile-safe-logo-link"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              textDecoration: 'none',
+              flexShrink: 0,
+            }}
+          >
             <img
+              className="mobile-safe-logo-img"
               src="/TimelineLogo.png"
               alt="Timeline Telematics"
               style={{
@@ -595,9 +647,10 @@ const Navbar = () => {
             </HoverDropdown>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+          <div className="mobile-safe-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
             <Link
               to="/contact"
+              className="mobile-safe-talk-btn"
               style={{
                 background: '#E8312A',
                 color: '#fff',
@@ -624,7 +677,8 @@ const Navbar = () => {
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="mob-btn"
+              className="mob-btn mobile-safe-menu-btn"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               style={{
                 display: 'none',
                 background: 'none',
@@ -639,64 +693,32 @@ const Navbar = () => {
         </div>
 
         {mobileOpen && (
-          <div style={{ background: '#fff', borderTop: '1px solid #f3f4f6', padding: '12px 24px 20px' }}>
+          <div
+            className="mobile-safe-panel"
+            style={{
+              background: '#fff',
+              borderTop: '1px solid #f3f4f6',
+              padding: '12px 24px 20px',
+            }}
+          >
             <Link to="/" style={mobileLinkStyle('/')}>Home</Link>
 
             <div>
-              <button
-                onClick={() => setMobileSolOpen(!mobileSolOpen)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: '11px 0',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  fontFamily: 'Poppins, sans-serif',
-                  color: '#374151',
-                  background: 'none',
-                  border: 'none',
-                  borderBottom: '1px solid #f3f4f6',
-                  cursor: 'pointer',
-                }}
-              >
+              <button onClick={() => setMobileSolOpen(!mobileSolOpen)} style={mobileButtonStyle}>
                 Solutions <ChevronDown />
               </button>
 
               {mobileSolOpen && (
-                <div style={{ paddingLeft: '12px' }}>
+                <div className="mobile-safe-submenu" style={{ paddingLeft: '12px' }}>
+                  <Link to="/solutions" style={{ ...mobileSubLinkStyle, color: '#E8312A', fontWeight: 800 }}>
+                    View All Solutions
+                  </Link>
+
                   {INDUSTRIES.map((ind) => (
-                    <Link
-                      key={ind.to}
-                      to={ind.to}
-                      style={{
-                        display: 'block',
-                        padding: '9px 0',
-                        fontSize: '13.5px',
-                        fontWeight: 600,
-                        color: '#374151',
-                        borderBottom: '1px solid #f9fafb',
-                        textDecoration: 'none',
-                      }}
-                    >
+                    <Link key={ind.to} to={ind.to} style={mobileSubLinkStyle}>
                       {ind.label}
                     </Link>
                   ))}
-
-                  <Link
-                    to="/solutions"
-                    style={{
-                      display: 'block',
-                      padding: '10px 0',
-                      fontSize: '13px',
-                      fontWeight: 800,
-                      color: '#E8312A',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    View All Solutions →
-                  </Link>
                 </div>
               )}
             </div>
@@ -704,29 +726,27 @@ const Navbar = () => {
             <Link to="/case-studies" style={mobileLinkStyle('/case-studies')}>Case Studies</Link>
 
             <div>
-              <button
-                onClick={() => setMobileProdOpen(!mobileProdOpen)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: '11px 0',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  fontFamily: 'Poppins, sans-serif',
-                  color: '#374151',
-                  background: 'none',
-                  border: 'none',
-                  borderBottom: '1px solid #f3f4f6',
-                  cursor: 'pointer',
-                }}
-              >
+              <button onClick={() => setMobileProdOpen(!mobileProdOpen)} style={mobileButtonStyle}>
                 Products <ChevronDown />
               </button>
 
               {mobileProdOpen && (
-                <div style={{ paddingLeft: '12px' }}>
+                <div className="mobile-safe-submenu" style={{ paddingLeft: '12px' }}>
+                  <Link
+                    to="/our-products"
+                    style={{
+                      display: 'block',
+                      padding: '10px 0',
+                      fontSize: '13px',
+                      fontWeight: 800,
+                      color: '#E8312A',
+                      textDecoration: 'none',
+                      fontFamily: 'Poppins, sans-serif',
+                    }}
+                  >
+                    View All Products
+                  </Link>
+
                   {DEVICES.map((cat) => (
                     <div key={cat.category} style={{ marginBottom: '10px' }}>
                       <div
@@ -737,6 +757,7 @@ const Navbar = () => {
                           textTransform: 'uppercase',
                           letterSpacing: '0.06em',
                           padding: '8px 0 4px',
+                          fontFamily: 'Poppins, sans-serif',
                         }}
                       >
                         {cat.category}
@@ -753,66 +774,29 @@ const Navbar = () => {
                             textDecoration: 'none',
                           }}
                         >
-                          <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#111827' }}>{item.label}</div>
-                          <div style={{ fontSize: '11px', color: '#9ca3af' }}>{item.desc}</div>
+                          <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#111827', fontFamily: 'Poppins, sans-serif' }}>
+                            {item.label}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#9ca3af', fontFamily: 'Poppins, sans-serif' }}>
+                            {item.desc}
+                          </div>
                         </Link>
                       ))}
                     </div>
                   ))}
-
-                  <Link
-                    to="/our-products"
-                    style={{
-                      display: 'block',
-                      padding: '10px 0',
-                      fontSize: '13px',
-                      fontWeight: 800,
-                      color: '#E8312A',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    View All Products →
-                  </Link>
                 </div>
               )}
             </div>
 
             <div>
-              <button
-                onClick={() => setMobilePlatformOpen(!mobilePlatformOpen)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: '11px 0',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  fontFamily: 'Poppins, sans-serif',
-                  color: '#374151',
-                  background: 'none',
-                  border: 'none',
-                  borderBottom: '1px solid #f3f4f6',
-                  cursor: 'pointer',
-                }}
-              >
+              <button onClick={() => setMobilePlatformOpen(!mobilePlatformOpen)} style={mobileButtonStyle}>
                 Platform <ChevronDown />
               </button>
 
               {mobilePlatformOpen && (
-                <div style={{ paddingLeft: '12px' }}>
+                <div className="mobile-safe-submenu" style={{ paddingLeft: '12px' }}>
                   {PLATFORMS.map((platform) => (
-                    <Link
-                      key={platform.label}
-                      to={platform.to}
-                      style={{
-                        display: 'block',
-                        padding: '9px 0',
-                        fontSize: '13.5px',
-                        color: '#374151',
-                        textDecoration: 'none',
-                      }}
-                    >
+                    <Link key={platform.label} to={platform.to} style={mobileSubLinkStyle}>
                       {platform.label}
                     </Link>
                   ))}
@@ -825,67 +809,154 @@ const Navbar = () => {
             <Link to="/about" style={mobileLinkStyle('/about')}>About</Link>
 
             <div>
-              <button
-                onClick={() => setMobileContactOpen(!mobileContactOpen)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: '11px 0',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  fontFamily: 'Poppins, sans-serif',
-                  color: '#374151',
-                  background: 'none',
-                  border: 'none',
-                  borderBottom: '1px solid #f3f4f6',
-                  cursor: 'pointer',
-                }}
-              >
+              <button onClick={() => setMobileContactOpen(!mobileContactOpen)} style={mobileButtonStyle}>
                 Contact <ChevronDown />
               </button>
 
               {mobileContactOpen && (
-                <div style={{ paddingLeft: '12px' }}>
-                  <Link
-                    to="/contact"
-                    style={{
-                      display: 'block',
-                      padding: '9px 0',
-                      fontSize: '13.5px',
-                      color: '#374151',
-                      textDecoration: 'none',
-                    }}
-                  >
+                <div className="mobile-safe-submenu" style={{ paddingLeft: '12px' }}>
+                  <Link to="/contact" style={mobileSubLinkStyle}>
                     Contact Us
                   </Link>
 
                   {CONTACT_LINKS.map((item) => (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      style={{
-                        display: 'block',
-                        padding: '9px 0',
-                        fontSize: '13.5px',
-                        color: '#374151',
-                        textDecoration: 'none',
-                      }}
-                    >
+                    <Link key={item.to} to={item.to} style={mobileSubLinkStyle}>
                       {item.label}
                     </Link>
                   ))}
                 </div>
               )}
             </div>
+
+            <Link
+              to="/contact"
+              className="mobile-safe-panel-cta"
+              style={{
+                display: 'block',
+                width: '100%',
+                marginTop: '16px',
+                padding: '13px 16px',
+                background: '#E8312A',
+                color: '#fff',
+                borderRadius: '10px',
+                textAlign: 'center',
+                textDecoration: 'none',
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: '14px',
+                fontWeight: 800,
+              }}
+            >
+              Talk to Expert
+            </Link>
           </div>
         )}
 
         <style>{`
           @media(max-width: 1100px) {
-            .desktop-nav { display: none !important; }
-            .mob-btn { display: flex !important; }
+            .mobile-safe-navbar-shell {
+              height: 66px !important;
+              padding: 0 16px !important;
+              gap: 10px !important;
+            }
+
+            .desktop-nav {
+              display: none !important;
+            }
+
+            .mobile-safe-logo-img {
+              width: 150px !important;
+              height: 54px !important;
+              padding-bottom: 0 !important;
+            }
+
+            .mobile-safe-talk-btn {
+              display: none !important;
+            }
+
+            .mob-btn,
+            .mobile-safe-menu-btn {
+              display: flex !important;
+              align-items: center !important;
+              justify-content: center !important;
+              width: 42px !important;
+              height: 42px !important;
+              border-radius: 10px !important;
+              background: #f9fafb !important;
+              border: 1px solid #e5e7eb !important;
+              flex-shrink: 0 !important;
+            }
+
+            .mobile-safe-panel {
+              max-height: calc(100vh - 106px) !important;
+              overflow-y: auto !important;
+              padding: 10px 18px 22px !important;
+              -webkit-overflow-scrolling: touch;
+              box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+            }
+
+            .navbar-top .mobile-safe-panel {
+              max-height: calc(100vh - 66px) !important;
+            }
+
+            .mobile-safe-submenu {
+              max-height: 52vh;
+              overflow-y: auto;
+              -webkit-overflow-scrolling: touch;
+            }
+          }
+
+          @media(max-width: 768px) {
+            .mobile-safe-navbar-shell {
+              height: 58px !important;
+              padding-left: 14px !important;
+              padding-right: 14px !important;
+            }
+
+            .mobile-safe-logo-img {
+              width: 135px !important;
+              height: 48px !important;
+              padding-bottom: 0 !important;
+            }
+
+            .mobile-safe-panel {
+              max-height: calc(100vh - 94px) !important;
+              padding-left: 18px !important;
+              padding-right: 18px !important;
+            }
+
+            .navbar-top .mobile-safe-panel {
+              max-height: calc(100vh - 58px) !important;
+            }
+          }
+
+          @media(max-width: 480px) {
+            .mobile-safe-navbar-shell {
+              height: 56px !important;
+              padding-left: 12px !important;
+              padding-right: 12px !important;
+            }
+
+            .mobile-safe-logo-img {
+              width: 128px !important;
+              height: 46px !important;
+              padding-bottom: 0 !important;
+            }
+
+            .mob-btn,
+            .mobile-safe-menu-btn {
+              width: 38px !important;
+              height: 38px !important;
+            }
+
+            .mobile-safe-panel {
+              max-height: calc(100vh - 92px) !important;
+              padding-left: 16px !important;
+              padding-right: 16px !important;
+            }
+
+            .navbar-top .mobile-safe-panel {
+              max-height: calc(100vh - 56px) !important;
+            }
           }
 
           @keyframes fadeDown {
