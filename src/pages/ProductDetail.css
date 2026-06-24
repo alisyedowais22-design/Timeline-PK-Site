@@ -543,3 +543,21 @@
   .pdp-hero-actions      { flex-direction: column; }
   .pdp-btn-primary, .pdp-btn-outline { text-align: center; }
 }
+
+
+/* Fix product detail content hiding under fixed navbar */
+.pdp-hero {
+  padding-top: 90px !important;
+}
+
+@media (max-width: 1100px) {
+  .pdp-hero {
+    padding-top: 85px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .pdp-hero {
+    padding-top: 75px !important;
+  }
+}
