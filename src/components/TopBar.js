@@ -12,10 +12,10 @@ import {
 
 const SOCIALS = [
   { Icon: FiLinkedin, href: '#', label: 'LinkedIn' },
-  { Icon: FiTwitter, href: '#', label: 'Twitter' },
-  { Icon: FiFacebook, href: '#', label: 'Facebook' },
-  { Icon: FiYoutube, href: '#', label: 'YouTube' },
-  { Icon: FiInstagram, href: '#', label: 'Instagram' },
+  { Icon: FiTwitter, href: 'https://x.com/TimelineMatics', label: 'Twitter' },
+  { Icon: FiFacebook, href: 'https://www.facebook.com/profile.php?id=61591590630260', label: 'Facebook' },
+  { Icon: FiYoutube, href: 'https://www.youtube.com/@TimelineTelematics', label: 'YouTube' },
+  { Icon: FiInstagram, href: 'https://www.instagram.com/timelinetelematics/?hl=en', label: 'Instagram' },
 ];
 
 const TopBar = () => {

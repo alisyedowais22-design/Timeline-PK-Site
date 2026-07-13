@@ -866,11 +866,175 @@ const allProductDetails = {
   ...QOHO_PRODUCT_DETAILS,
 };
 
+/* ─────────────────────────────────────────────────────────────
+   PRODUCT ACCESSORIES IMAGE MAPPING
+   Images path: public/accessories/{file-name}.png
+   Only accessories data/rendering is updated.
+───────────────────────────────────────────────────────────── */
+
+const productAccessory = (label, image) => ({ label, image });
+
+const PRODUCT_ACCESSORY_OVERRIDES = {
+  'gt06n-4g': [
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+    productAccessory('KC208S Remote Control', '/accessories/kc208s.png'),
+    productAccessory('K7800P Environment Sensor', '/accessories/k7800p.png'),
+  ],
+
+  vg03: [
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+  ],
+
+  vl103d: [
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+  ],
+
+  vl103m: [
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+    productAccessory('KC208S Remote Control', '/accessories/kc208s.png'),
+  ],
+
+  vl110c: [
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+    productAccessory('KF041S Capacitive Fuel Level Sensor', '/accessories/kf041s.png'),
+    productAccessory('K7800P Environment Sensor', '/accessories/k7800p.png'),
+  ],
+
+  vl802: [
+    productAccessory('KF041S Fuel Level Sensor', '/accessories/kf041s.png'),
+    productAccessory('KC208S Remote Control', '/accessories/kc208s.png'),
+    productAccessory('K7800P Temperature Probe', '/accessories/k7800p.png'),
+  ],
+
+  vl808: [
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+  ],
+
+  x3: [
+    productAccessory('KC208S Remote Control', '/accessories/kc208s.png'),
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+  ],
+
+  gt06n: [
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+    productAccessory('KC208S Remote Control', '/accessories/kc208s.png'),
+  ],
+
+  vl502: [
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+    productAccessory('KF041S Fuel Level Sensor', '/accessories/kf041s.png'),
+  ],
+
+  ll303pro: [
+    productAccessory('K7800P Environment Sensor', '/accessories/k7800p.png'),
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+    productAccessory('KF281S BLE Powered Fuel Level Sensor', '/accessories/kf281s.png'),
+  ],
+
+  ll301: [
+    productAccessory('K7800P Environment Sensor', '/accessories/k7800p.png'),
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+  ],
+
+  pl200: [
+    productAccessory('K7800P Environment Sensor', '/accessories/k7800p.png'),
+    productAccessory('KC208S Remote Control', '/accessories/kc208s.png'),
+  ],
+
+  jc371: [
+    productAccessory('CI05F Cabin-View Full AHD Camera', '/accessories/ci05f.png'),
+    productAccessory('CI06F Cabin-View Full AHD Camera', '/accessories/ci06f.png'),
+    productAccessory('CE02 IP67 Blindspot Camera', '/accessories/ce02.png'),
+  ],
+
+  jc450: [
+    productAccessory('CI02 Cabin-View USB Camera', '/accessories/ci02.png'),
+    productAccessory('CE02 IP67 Blindspot Camera', '/accessories/ce02.png'),
+    productAccessory('CD02 Driver-Facing Infrared Camera', '/accessories/cd02.png'),
+    productAccessory('JCM0700 Display Unit', '/accessories/jcm0700.png'),
+  ],
+
+  jc261: [
+    productAccessory('CI03 Cabin-View Infrared Camera', '/accessories/ci03.png'),
+    productAccessory('CE02 IP67 Blindspot Camera', '/accessories/ce02.png'),
+  ],
+
+  jc261p: [
+    productAccessory('CI03 Cabin-View Infrared Camera', '/accessories/ci03.png'),
+    productAccessory('CE02 IP67 Blindspot Camera', '/accessories/ce02.png'),
+  ],
+
+  jc400d: [
+    productAccessory('CI01 Cabin-View Infrared Camera', '/accessories/ci01.png'),
+    productAccessory('CE01 Rear-View Waterproof Camera', '/accessories/ce01.png'),
+    productAccessory('CI03 Cabin-View Infrared Camera', '/accessories/ci03.png'),
+  ],
+
+  jc181: [
+    productAccessory('KZ081V DC-DC Converter', '/accessories/kz081v.png'),
+    productAccessory('KJ806 Extended Control Box', '/accessories/kj806.png'),
+  ],
+};
+
+const getAccessoryFallbackImage = (label = '') => {
+  const textValue = label.toLowerCase();
+
+  if (textValue.includes('ci05')) return '/accessories/ci05f.png';
+  if (textValue.includes('ci06')) return '/accessories/ci06f.png';
+  if (textValue.includes('ci02')) return '/accessories/ci02.png';
+  if (textValue.includes('ci03')) return '/accessories/ci03.png';
+  if (textValue.includes('ci01')) return '/accessories/ci01.png';
+  if (textValue.includes('ce02') || textValue.includes('blindspot')) return '/accessories/ce02.png';
+  if (textValue.includes('ce01') || textValue.includes('rear')) return '/accessories/ce01.png';
+  if (textValue.includes('cd02') || textValue.includes('driver-facing')) return '/accessories/cd02.png';
+  if (textValue.includes('jcm0700') || textValue.includes('display')) return '/accessories/jcm0700.png';
+  if (textValue.includes('kc208s') || textValue.includes('remote')) return '/accessories/kc208s.png';
+  if (textValue.includes('kj806') || textValue.includes('control box') || textValue.includes('cable') || textValue.includes('harness')) return '/accessories/kj806.png';
+  if (textValue.includes('kz081v') || textValue.includes('converter') || textValue.includes('power') || textValue.includes('charging')) return '/accessories/kz081v.png';
+  if (textValue.includes('kf043')) return '/accessories/kf043u.png';
+  if (textValue.includes('kf201')) return '/accessories/kf201s.png';
+  if (textValue.includes('kf281')) return '/accessories/kf281s.png';
+  if (textValue.includes('kf041') || textValue.includes('fuel')) return '/accessories/kf041s.png';
+  if (textValue.includes('temperature') || textValue.includes('environment') || textValue.includes('probe')) return '/accessories/k7800p.png';
+  if (textValue.includes('camera') || textValue.includes('cabin')) return '/accessories/ci03.png';
+  if (textValue.includes('storage') || textValue.includes('card')) return '/accessories/jcm0700.png';
+  if (textValue.includes('antenna')) return '/accessories/kc208s.png';
+  if (textValue.includes('mount') || textValue.includes('bracket') || textValue.includes('kit') || textValue.includes('clip') || textValue.includes('case')) return '/accessories/kz081v.png';
+
+  return '/placeholder.png';
+};
+
+const normalizeProductAccessories = (currentProductId, accessories = []) => {
+  if (PRODUCT_ACCESSORY_OVERRIDES[currentProductId]) {
+    return PRODUCT_ACCESSORY_OVERRIDES[currentProductId];
+  }
+
+  return accessories.map((acc) => ({
+    ...acc,
+    label: acc.label,
+    image: acc.image || getAccessoryFallbackImage(acc.label),
+  }));
+};
+
+
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
 
-  const product = allProductDetails[productId];
+  const rawProduct = allProductDetails[productId];
+
+  const product = rawProduct
+    ? {
+        ...rawProduct,
+        accessories: normalizeProductAccessories(productId, rawProduct.accessories || []),
+      }
+    : null;
+
   const [activeTab, setActiveTab] = useState('overview');
 
   const related = useMemo(() => {
@@ -1060,11 +1224,32 @@ const ProductDetail = () => {
                 {(product.accessories || []).map((acc, index) => (
                   <div key={index} className="pdp-acc-card">
                     <div className="pdp-acc-img-placeholder">
-                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="1.5">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <polyline points="21 15 16 10 5 21" />
-                      </svg>
+                      {acc.image ? (
+                        <img
+                          src={acc.image}
+                          alt={acc.label}
+                          className="pdp-acc-img"
+                          loading="lazy"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            padding: '24px',
+                            boxSizing: 'border-box',
+                            display: 'block',
+                          }}
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = '/placeholder.png';
+                          }}
+                        />
+                      ) : (
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="1.5">
+                          <rect x="3" y="3" width="18" height="18" rx="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                      )}
                     </div>
 
                     <p className="pdp-acc-label">{acc.label}</p>
