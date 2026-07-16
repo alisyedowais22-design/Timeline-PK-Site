@@ -6236,3 +6236,173 @@ iframe {
     padding-right: 16px !important;
   }
 }
+
+
+
+
+
+
+/* ================================
+   MOBILE FIX - TOPBAR + EVENTS CARD
+================================ */
+
+@media (max-width: 768px) {
+  /* Top black bar mobile par hide */
+  .top-bar,
+  .topbar,
+  .site-topbar,
+  .top-header {
+    display: none !important;
+  }
+
+  /* Navbar mobile par top se start ho */
+  .site-navbar,
+  .navbar,
+  .main-navbar {
+    top: 0 !important;
+  }
+
+  /* Page content navbar ke neeche aaye */
+  main {
+    padding-top: 74px !important;
+  }
+
+  /* Events page main wrapper cut na ho */
+  .events-page,
+  .events-section,
+  .events-list,
+  .events-grid,
+  .event-list,
+  .event-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Event cards mobile full width */
+  .event-card,
+  .events-card,
+  .single-event-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Event card image/slider cut na ho */
+  .event-card img,
+  .events-card img,
+  .single-event-card img,
+  .event-slider,
+  .events-slider,
+  .event-image-slider {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  /* Agar event image fixed height me hai to mobile par controlled height */
+  .event-image,
+  .events-image,
+  .event-img,
+  .event-card-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    overflow: hidden !important;
+  }
+
+  /* Mobile horizontal scroll remove */
+  html,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding-top: 72px !important;
+  }
+
+  .event-image,
+  .events-image,
+  .event-img,
+  .event-card-image {
+    height: 270px !important;
+  }
+
+  .event-card,
+  .events-card,
+  .single-event-card {
+    border-radius: 16px !important;
+  }
+}
+
+
+
+
+
+/* ================================
+   EVENTS IMAGE FULL FIT FIX
+================================ */
+
+@media (max-width: 768px) {
+  /* Event card mobile width */
+  .events-page .container {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    max-width: 100% !important;
+  }
+
+  /* Event card proper center */
+  .events-page .event-card,
+  .events-page .events-card,
+  .events-page [class*="card"] {
+    width: 100% !important;
+    max-width: calc(100vw - 28px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Main image area */
+  .events-page .event-image-slider,
+  .events-page .event-slider,
+  .events-page [class*="slider"],
+  .events-page [class*="image"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    background: #111827 !important;
+  }
+
+  /* Image crop band karo */
+  .events-page img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 270px !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: #111827 !important;
+    display: block !important;
+  }
+
+  /* arrows andar rahein */
+  .events-page button {
+    max-width: unset !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .events-page img {
+    height: 260px !important;
+  }
+}
