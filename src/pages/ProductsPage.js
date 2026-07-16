@@ -54,6 +54,8 @@ const ProductsPage = () => {
       label: 'AI Dashcams',
       desc: 'ADAS & DMS AI-powered dashcams for fleet safety',
       products: [
+        { id: 'f5', model: 'F5', image: '/products/f5.png', name: 'ADAS + BSD DashCam' },
+        { id: 'f7', model: 'F7', image: '/products/f7.png', name: 'ADAS + BSD DashCam' },
         { id: 'jc371', model: 'JC371', image: '/products/jc371.png', name: 'AI Dashcam with ADAS' },
         { id: 'jc450', model: 'JC450', image: '/products/jc450.png', name: 'Multi-Channel AI Dashcam' },
         { id: 'jc261', model: 'JC261', image: '/products/jc261.png', name: 'Dual Camera AI Dashcam' },

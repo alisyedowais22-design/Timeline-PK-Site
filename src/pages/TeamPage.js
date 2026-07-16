@@ -82,7 +82,7 @@ const TeamPage = () => {
       name: 'Syed Owais Ali',
       role: 'Front End Developer',
       category: 'Development',
-      image: '/team/boyavatar.webp',
+      image: '/team/owais.png',
       bio: 'Frontend Developer with 1 year of experience building responsive and user-friendly web interfaces using modern web technologies. Passionate about creating clean UI, improving performance, and delivering smooth user experiences.',
       linkedin: 'https://www.linkedin.com/in/syed-owais-ali-298617288/',
       email: 'owais@timelinetelematics.com',

@@ -50,6 +50,8 @@ const BASE_DEVICES = [
     category: 'AI Dashcams',
     desc: 'ADAS & DMS AI cameras',
     items: [
+      { label: 'F5', desc: 'ADAS + BSD DashCam', to: '/our-products/f5' },
+      { label: 'F7', desc: 'ADAS + BSD DashCam', to: '/our-products/f7' },
       { label: 'JC371', desc: 'AI Dashcam with ADAS', to: '/our-products/jc371' },
       { label: 'JC450', desc: 'Multi-Channel AI Dashcam', to: '/our-products/jc450' },
       { label: 'JC261', desc: 'Dual Camera AI Dashcam', to: '/our-products/jc261' },

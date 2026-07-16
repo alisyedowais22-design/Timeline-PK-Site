@@ -7,6 +7,7 @@ import StatsSection from '../components/StatsSection';
 import Solutions from '../components/Solutions';
 import Services from '../components/services';
 import CTASection from '../components/CTASection';
+import ProductBannerSlider from '../components/ProductBannerSlider';
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       <Hero />
       <FleetOverview />
       <Solutions />
+      <ProductBannerSlider />
       <StatsSection />
       <TrustBadges />
       <CTASection />
